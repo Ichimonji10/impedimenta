@@ -7,23 +7,24 @@
       state: absent
     loop:
       - clone-customize-domains
+      - clone-customize-domains.sh
+      - psmash-runner-2-13-stable
+      - psmash-runner-2-14-nightly
+      - psmash-runner-2-14-stable
+      - psmash-runner-2-15-nightly
+      - psmash-runner-2-15-stable
+      - psmash-runner-2-16-nightly
+      - psmash-runner-2-16-stable
+      - psmash-runner-2-17-nightly
       - psmash-runner-3
       - psmash-runner-3-pypi
       - psmash-runner-3-qpid
       - psmash-runner-3-rabbitmq
       - psmash-runner-3-source
+      - psmash-runner-beta
       - psmash-runner-clustered
-
-  - name: Install custom executables into ~/.local/bin
-    copy:
-      src: local_bin/
-      dest: "{{ user_ichimonji10_home }}/.local/bin/"
-      mode: 0755
-
-  - name: Delete outdated psmash-ssh executable
-    file:
-      path: "{{ user_ichimonji10_home }}/.local/bin/psmash-ssh"
-      state: absent
+      - psmash-ssh
+      - psmash-ssh.py
 
   - name: Create "{{ user_ichimonji10_home }}/.config/libvirt"
     file:
