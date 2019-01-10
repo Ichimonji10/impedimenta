@@ -1,15 +1,4 @@
 ---
-# borg_backup_users is alrleady defined in group_vars/workstations, but
-# redefined here because this host uses different local_paths.
-borg_backup_users:
-  - local_user: ichimonji10
-    local_paths:
-      - /mnt/btrfs/home/ichimonji10/Books
-      - /mnt/btrfs/home/ichimonji10/Documents
-      - /mnt/btrfs/home/ichimonji10/Pictures
-    remote_host: usw-s001.rsync.net
-    remote_user: 1025
-
 btrfs_paths:
   - /mnt/btrfs
 
