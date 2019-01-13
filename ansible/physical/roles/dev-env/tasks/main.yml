@@ -20,6 +20,7 @@
         - cmark
         - ctags
         - desktop-file-utils
+        - devtools
         - entr
         - git
         - graphviz
