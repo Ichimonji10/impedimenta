@@ -1,0 +1,23 @@
+# shellcheck shell=bash
+# shellcheck disable=SC2034,SC2154
+
+pkgname='bar'
+pkgver='1'
+pkgrel=1
+pkgdesc="Install several files to /usr/share/${pkgname}/"
+url='https://www.ichimonji10.name'
+license=('WTFPL')
+arch=('any')
+depends=('filesystem')
+# Both of these URIs are valid as per makepkg. But why?
+source=('local:///one'
+        'local://two')
+sha256sums=('2c8b08da5ce60398e1f19af0e5dccc744df274b826abe585eaba68c525434806'
+            '27dd8ed44a83ff94d557f9fd0412ed5a8cbca69ea04922d88c01184a07300a5a')
+
+package() {
+  install -D -m 644 "${srcdir}/one" "${pkgdir}/usr/share/${pkgname}/one"
+  install -D -m 644 "${srcdir}/two" "${pkgdir}/usr/share/${pkgname}/two"
+}
+
+# vim:set ts=2 sw=2 et:

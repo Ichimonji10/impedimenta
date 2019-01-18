@@ -1,0 +1,23 @@
+# shellcheck shell=bash
+# shellcheck disable=SC2034,SC2154
+
+pkgname='foo'
+pkgver='1'
+pkgrel=1
+pkgdesc="Install several default configuration files to /usr/share/${pkgname}/"
+url='https://www.ichimonji10.name'
+license=('WTFPL')
+arch=('any')
+depends=('filesystem')
+# Both of these URIs are valid as per RFC 3986 8089.
+source=('file:///usr/share/factory/etc/hosts'
+        'file:/usr/share/factory/etc/shells')
+sha256sums=('d9cd8a77d9e0aa5e90d7f4ed74c8745c17b525e720e28e4c44364150003c35f9'
+            'c390b31fffc4a2b5d78ae8c89f5317aadef1f71baac09cfb467b675db1406d61')
+
+package() {
+  install -D -m 644 "${srcdir}/hosts" "${pkgdir}/usr/share/${pkgname}/hosts"
+  install -D -m 644 "${srcdir}/shells" "${pkgdir}/usr/share/${pkgname}/shells"
+}
+
+# vim:set ts=2 sw=2 et:
