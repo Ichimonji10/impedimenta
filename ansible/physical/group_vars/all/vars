@@ -18,6 +18,7 @@ custom_repos:
       - bandwidth
       - python-rst2pdf
       - python36
+      - spin
       - vim-badwolf-git
       - vim-hemisu-git
       - vim-mark

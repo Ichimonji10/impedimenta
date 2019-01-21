@@ -35,6 +35,7 @@
         - python-wheel
         - python36
         - shellcheck
+        - spin
         - sshpass  # optional for ansible
         - tmux
         - twine
