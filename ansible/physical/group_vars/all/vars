@@ -40,6 +40,7 @@ custom_repos:
       # workstation role
       - brother-hll2395dw
       - brscan4
+      - filebot
       - mnemosyne
       - ms-sys
       - zoom
