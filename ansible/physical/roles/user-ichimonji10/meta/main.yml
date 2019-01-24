@@ -11,5 +11,7 @@ dependencies:
   - role: group-wheel
   - role: libvirtd
     when: "'vm-hosts' in group_names"
+  - role: transmission
+    when: "'bittorrent-hosts' in group_names"
   - role: workstation
     when: "'workstations' in group_names"

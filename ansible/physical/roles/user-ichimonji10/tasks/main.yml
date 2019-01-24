@@ -21,6 +21,11 @@
       "{{ user_ichimonji10_groups + ['uucp', 'wireshark'] }}"
   when: "'workstations' in group_names"
 
+- name: Append "transmission" the the list of groups
+  set_fact:
+    user_ichimonji10_groups: "{{ user_ichimonji10_groups + ['transmission'] }}"
+  when: "'bittorrent-hosts' in group_names"
+
 - name: Create ichimonji10
   user:
     name: ichimonji10
