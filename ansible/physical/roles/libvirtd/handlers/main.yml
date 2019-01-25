@@ -12,3 +12,9 @@
     name: dnsmasq.service
     state: restarted
   become: true
+
+- name: Restart libvirtd
+  systemd:
+    name: libvirtd.service
+    state: restarted
+  become: true

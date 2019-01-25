@@ -6,12 +6,20 @@
       - libguestfs
       - libvirt
       - openbsd-netcat  # libvirt management over ssh
+      - ovmf
       - qemu  # libvirt backend
       - virt-install  # libvirt management via console (including virt-clone)
   become: true
   notify: Set install reason for packages
 
 - block:
+
+    - name: Install qemu configuration file
+      copy:
+        src: qemu.conf
+        dest: /etc/libvirt/qemu.conf
+        mode: 0755
+      notify: Restart libvirtd
 
     - block:
 
