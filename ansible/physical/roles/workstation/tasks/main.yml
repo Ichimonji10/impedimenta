@@ -5,71 +5,91 @@
     pacman:
       name: '{{ workstation_video_drivers }}'
 
-  - name: Uninstall unused packages
-    pacman:
-      name:
-        - chromium
-        - p7zip
-        - unrar
-      state: absent
-
   # NOTE: We assume base and base-devel are already present, and were enabled at
   # install time. Requiring it at a later time can be problematic if the
   # multilib repository is enabled.
-  #
-  # To integrate light-locker with XFCE:
-  # https://wiki.archlinux.org/index.php/Xfce#Panel_lock_button
   - name: Install applications
     pacman:
       name:
-        - audacious
         - brother-hll2395dw
         - brscan4
         - calibre
-        - easytag
-        - evince
         - exfat-utils
-        - file-roller
         - firefox
-        - gimp
-        - gnome-keyring
         - gptfdisk
-        - gvfs  # optional for thunar
-        - hexchat
         - iperf3
-        - light-locker  # see comments above
-        - lightdm
-        - lightdm-gtk-greeter-settings
         - lshw
         - lsof
         - mnemosyne
         - ms-sys
-        - network-manager-applet
         - networkmanager
         - networkmanager-openvpn
         - noto-fonts
         - noto-fonts-emoji
         - ntfs-3g
         - openssh
-        - pavucontrol
         - picocom
         - pulseaudio
-        - qt4  # for vlc
-        - simple-scan
         - sshfs
         - steam
-        - system-config-printer
         - texlive-core  # for mnemosyne
         - ttf-dejavu
+        - unzip
         - virt-manager
         - vlc
-        - wireshark-gtk
+        - wireshark-qt
         - xclip
+        - zip
+        - zoom
+
+        # The goal is to *not* pull in the entire KDE desktop environment. So,
+        # rather than installing plasma-{meta,kde-applications-meta}, we install
+        # a more targeted set of applications and meta-packages. See:
+        # https://wiki.archlinux.org/index.php/KDE#Installation
+        - dolphin
+        - gwenview
+        - juk
+        - kcalc
+        - kcharselect
+        - kgraphviewer
+        - konsole
+        - konversation
+        - krita
+        - kwrite
+        - okular
+        - plasma-meta
+        - plasma-wayland-session
+        - print-manager
+        - sddm
+        - skanlite
+        - spectacle
+    notify: Set install reason for optional dependencies
+
+  - name: Uninstall applications
+    pacman:
+      name:
+        - audacious
+        - chromium
+        - easytag
+        - evince
+        - file-roller
+        - gimp
+        - gnome-keyring
+        - gvfs  # optional for thunar
+        - hexchat
+        - light-locker
+        - lightdm
+        - lightdm-gtk-greeter-settings
+        - network-manager-applet
+        - p7zip
+        - pavucontrol
+        - qt4  # formerly for vlc
+        - simple-scan
+        - unrar
+        - wireshark-gtk
         - xfce4
         - xfce4-goodies
-        - xorg-server
-        - zoom
-    notify: Set install reason for optional dependencies
+      state: absent
 
   become: true
 
@@ -82,7 +102,7 @@
     daemon_reload: true
   loop:
     - NetworkManager.service
-    - lightdm.service
+    - sddm.service
   become: true
 
 - name: Enable and start CUPS
