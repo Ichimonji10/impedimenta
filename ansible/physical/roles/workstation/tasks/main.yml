@@ -5,6 +5,11 @@
     pacman:
       name: '{{ workstation_video_drivers }}'
 
+  - name: Uninstall old video drivers
+    pacman:
+      name: mesa-vdpau
+      state: absent
+
   # NOTE: We assume base and base-devel are already present, and were enabled at
   # install time. Requiring it at a later time can be problematic if the
   # multilib repository is enabled.
@@ -48,6 +53,7 @@
         # https://wiki.archlinux.org/index.php/KDE#Installation
         - dolphin
         - gst-plugins-good
+        - gstreamer-vaapi
         - gwenview
         - juk
         - kcalc
