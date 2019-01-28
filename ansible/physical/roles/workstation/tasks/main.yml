@@ -47,6 +47,7 @@
         # a more targeted set of applications and meta-packages. See:
         # https://wiki.archlinux.org/index.php/KDE#Installation
         - dolphin
+        - gst-plugins-good
         - gwenview
         - juk
         - kcalc
