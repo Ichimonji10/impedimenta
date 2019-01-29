@@ -1,0 +1,18 @@
+[build-system]
+requires = ['flit']
+build-backend = 'flit.buildapi'
+
+[tool.flit.metadata]
+author = 'Jeremy Audet'
+author-email = 'jerebear@protonmail.com'
+classifiers = [
+    'Development Status :: 1 - Planning',
+    'Programming Language :: Python :: 3 :: Only',
+]
+description-file = 'README.rst'
+home-page = 'https://www.ichimonji10.name'
+module = 'main'
+requires = ['jeepney']
+
+[tool.flit.scripts]
+main = 'main:main'
