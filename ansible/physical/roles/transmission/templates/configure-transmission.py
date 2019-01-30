@@ -34,12 +34,17 @@ def main():
     # Disable UPnP and NAT-PMP. AFAIK, VPN provider doesn't support them.
     config['port-forwarding-enabled'] = False
 
-    # Require username and password.
-    config['rpc-authentication-required'] = True
+    # Configure authentication. When making HTTP reqests to the web UI, make
+    # sure to append "web/" to the rpc-url. See:
+    # https://www.raspberrypi.org/forums/viewtopic.php?f=74&t=22013
+    config['rpc-authentication-required'] = False  # let proxy handle auth
     config['rpc-bind-address'] = '127.0.0.1'
-    config['rpc-username'] = 'admin'
-    config['rpc-whitelist-enabled'] = False
-    config['rpc-password'] = '{{ transmission_password }}'
+    config['rpc-enabled'] = True
+    config['rpc-host-whitelist'] = 'localhost'
+    config['rpc-host-whitelist-enabled'] = True  # who can proxy requests?
+    config['rpc-port'] = 9091
+    config['rpc-url'] = '/transmission/'
+    config['rpc-whitelist-enabled'] = False  # who can make requests?
 
     # Avoid uploading much over 1 TB of data per month. God forbid that I use
     # the bandwidth I pay for.

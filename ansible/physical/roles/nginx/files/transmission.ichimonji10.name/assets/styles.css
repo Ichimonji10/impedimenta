@@ -1,0 +1,33 @@
+html {
+    /* Demote the visual importance of whitespace. */
+    background-color: #E4E3E8;
+    background-image: url('/assets/xv.png');
+
+    /* Separate the browser viewport from content. */
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+body {
+    /* Make content a comfortable width and center it. */
+    max-width: 60em;
+    margin-left: auto;
+    margin-right: auto;
+
+    /* Separate <body> tag from its content. */
+    padding: 1px 1em 1em 1em;
+
+    /* Promote the visual importance of content. */
+    background-color: white;
+    box-shadow: 0 0 0.2em 0.2em #8291A0;
+    border-radius: 0.5em;
+}
+
+footer {
+    /* Demote the visual importance of the footer. */
+    border-top: thin solid #8291A0;
+    font-size: smaller;
+    padding-top: 0.5em;
+    /* Prevent floated content from extending into the footer. */
+    clear: both;
+}
