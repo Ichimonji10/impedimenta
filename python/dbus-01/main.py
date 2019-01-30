@@ -9,13 +9,13 @@ from jeepney.integrate.blocking import connect_and_authenticate
 
 def main():
     """Send a message to the desktop."""
-    notifications = DBusAddress(
+    notifications_app = DBusAddress(
         '/org/freedesktop/Notifications',
         bus_name='org.freedesktop.Notifications',
         interface='org.freedesktop.Notifications',
     )
     msg = new_method_call(
-        remote_obj=notifications,
+        remote_obj=notifications_app,
         method='Notify',
         signature='susssasa{sv}i',
         body=(
@@ -29,7 +29,6 @@ def main():
             -1,
         ),
     )
-
     connection = connect_and_authenticate(bus='SESSION')
     reply = connection.send_and_get_reply(msg)
     print(reply)
