@@ -35,3 +35,7 @@ body {
     margin-right: auto;
     max-width: 60em;
 }
+
+.acronym_letter {
+    font-weight: bold;
+}
