@@ -4,13 +4,14 @@ byte completed_procs = 0;
 active [2] proctype P() {
     byte reg = 0;
     byte i = 0;
-    do  ::  i == 5 ->
-            break;
-        ::  else ->
-            reg = counter;
-            reg++;
-            counter = reg;
-            i++;
+    do
+    ::  i == 5 ->
+        break;
+    ::  else ->
+        reg = counter;
+        reg++;
+        counter = reg;
+        i++;
     od;
     completed_procs++;
 };
