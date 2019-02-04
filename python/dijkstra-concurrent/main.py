@@ -47,7 +47,7 @@ it.
 """
 from threading import Thread
 from time import sleep
-from typing import List
+from typing import Callable, List
 
 
 WORKERS = 4
@@ -59,15 +59,34 @@ outer_wall_doors: List[bool] = [False for _ in range(WORKERS)]
 
 def main() -> None:
     """Spawn several threads."""
-    threads = [Thread(target=print_msg, args=(i,)) for i in range(WORKERS)]
+    threads = [Thread(target=do_work, args=(i,)) for i in range(WORKERS)]
     for thread in threads:
         thread.start()
     for thread in threads:
         thread.join()
 
 
-def print_msg(worker_id: int) -> None:
-    """Print a message including ``worker_id``."""
+def do_work(worker_id: int) -> None:
+    """Do bogus work.
+
+    Do work, acquire the lock, do more work, release the lock, and do more
+    work. (No work is actually done.)
+
+    :param worker_id: A unique identifier for this thread. Used in lock
+        management logic.
+    """
+    lock_and_call(worker_id, print, f'Worker {worker_id} doing critical work.')
+
+
+def lock_and_call(worker_id: int, function: Callable, *args, **kwargs) -> None:
+    """Acquire the global lock, call the given function, and release the lock.
+
+    :param worker_id: A unique identifier for this thread. Used in lock
+        management logic.
+    :param function: A function to call once the lock is acquired.
+    :param args: Passed to ``function``.
+    :param kwargs: Passed to ``function``.
+    """
     global outer_wall_doors  # pylint:disable=global-statement,invalid-name
     global inner_wall_doors  # pylint:disable=global-statement,invalid-name
     global candidate_id  # pylint:disable=global-statement,invalid-name
@@ -112,13 +131,12 @@ def print_msg(worker_id: int) -> None:
         if have_lock:
             break
 
-    print(f'{worker_id}: starting critical section')
+    print(f'Worker {worker_id} has acquired the lock.')
     sleep(2)
-    print(f'{worker_id}: ending critical section')
+    function(*args, **kwargs)
+    print(f'Worker {worker_id} is releasing the lock.')
     inner_wall_doors[worker_id] = False
     outer_wall_doors[worker_id] = False
-    sleep(1)
-    print(f'{worker_id}: executing non-critical section')
 
 
 if __name__ == '__main__':
