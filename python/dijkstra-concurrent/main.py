@@ -113,7 +113,8 @@ def lock_and_call(worker_id: int, function: Callable, *args, **kwargs) -> None:
     #      critical area. B notices that A's inner door is open and aborts its
     #      attempt to get into the critical area.
     outer_wall_doors[worker_id] = True
-    while True:
+    have_lock = False
+    while not have_lock:
         have_lock = False
         if candidate_id != worker_id:
             inner_wall_doors[worker_id] = False
@@ -127,9 +128,6 @@ def lock_and_call(worker_id: int, function: Callable, *args, **kwargs) -> None:
                     continue
                 if inner_wall_door:
                     have_lock = False
-
-        if have_lock:
-            break
 
     print(f'Worker {worker_id} has acquired the lock.')
     sleep(2)
