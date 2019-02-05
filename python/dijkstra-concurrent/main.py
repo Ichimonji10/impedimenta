@@ -50,7 +50,7 @@ from time import sleep
 from typing import Callable, List
 
 
-WORKERS = 4
+WORKERS = 3
 
 candidate_id: int = 0
 inner_wall_doors: List[bool] = [False for _ in range(WORKERS)]
