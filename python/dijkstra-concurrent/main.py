@@ -4,9 +4,11 @@
 
 This module implements Dijkstra's concurrent lock acquisition algorithm, as
 laid out in his 1965 paper "Solution of a Problem in Concurrent Programming
-Control." The problem is as follows: given a group of N computers working
-together on some task, how can we ensure that only one works on a critical
-portion fo the task at a time? Some requirements are as follows:
+Control."
+
+The problem is as follows: given a group of N computers working together on
+some task, how can we ensure that only one works on a critical portion fo the
+task at a time? Some requirements are as follows:
 
 #. If two computers attempt to enter the critical section at the same time, the
    solution can *not* be to choose a winner based on some static property of
@@ -48,7 +50,6 @@ it.
 from threading import Thread
 from time import sleep
 from typing import Callable, List
-
 
 WORKERS = 3
 
