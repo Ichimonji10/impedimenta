@@ -1,0 +1,18 @@
+- hosts: all
+  tasks:
+
+    - name: Print ansible_env
+      debug:
+        var: ansible_env
+
+    - name: Print ansible_facts
+      debug:
+        var: ansible_facts
+
+    - name: Print ansible_env.HOME
+      debug:
+        var: ansible_env.HOME
+
+    - name: Print ansible_env.HOME, via interpolation
+      debug:
+        msg: 'ansible_env.HOME == {{ ansible_env.HOME }}'
