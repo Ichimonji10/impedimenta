@@ -1,5 +1,5 @@
-dbus-01
-=======
+Notification Generator
+======================
 
 This application generates a desktop notification with D-Bus. A good way to make
 use of this program is to do the following:

@@ -10,9 +10,13 @@ classifiers = [
     'Programming Language :: Python :: 3 :: Only',
 ]
 description-file = 'README.rst'
+dist-name = 'notification-generator'
 home-page = 'https://www.ichimonji10.name'
-module = 'main'
+module = 'notification_generator'
 requires = ['jeepney']
 
+[tool.flit.metadata.requires-extra]
+dev = ['mypy', 'pylint']
+
 [tool.flit.scripts]
-main = 'main:main'
+ng-cli = 'notification_generator.cli:main'

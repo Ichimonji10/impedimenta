@@ -1,14 +1,15 @@
-#!/usr/bin/env python3
 # coding=utf-8
-"""Send a message to the desktop."""
-__version__ = '0.1'
-
+"""Utilities for working with dbus."""
 from jeepney import DBusAddress, new_method_call
 from jeepney.integrate.blocking import connect_and_authenticate
 
 
-def main():
-    """Send a message to the desktop."""
+def send(summary: str, body: str) -> None:
+    """Send a message to the notification service.
+
+    :param summary: The summary text briefly describing the notification.
+    :param body: The detailed body text.
+    """
     notifications_app = DBusAddress(
         '/org/freedesktop/Notifications',
         bus_name='org.freedesktop.Notifications',
@@ -19,20 +20,15 @@ def main():
         method='Notify',
         signature='susssasa{sv}i',
         body=(
-            'dbus-01',
+            'Notification Generator',
             0,
             '',
-            'summary text',
-            'body text',
+            summary,
+            body,
             [],
             {},
             -1,
         ),
     )
     connection = connect_and_authenticate(bus='SESSION')
-    reply = connection.send_and_get_reply(msg)
-    print(reply)
-
-
-if __name__ == '__main__':
-    main()
+    connection.send_and_get_reply(msg)
