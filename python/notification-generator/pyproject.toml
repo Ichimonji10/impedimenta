@@ -17,6 +17,8 @@ requires = ['jeepney']
 
 [tool.flit.metadata.requires-extra]
 dev = ['mypy', 'pylint']
+gui = ['PySide2']
 
 [tool.flit.scripts]
 ng-cli = 'notification_generator.cli:main'
+ng-gui = 'notification_generator.gui:main'
