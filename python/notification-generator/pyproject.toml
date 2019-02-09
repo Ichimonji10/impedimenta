@@ -13,11 +13,10 @@ description-file = 'README.rst'
 dist-name = 'notification-generator'
 home-page = 'https://www.ichimonji10.name'
 module = 'notification_generator'
-requires = ['jeepney']
+requires = ['PyQt5']
 
 [tool.flit.metadata.requires-extra]
 dev = ['mypy', 'pylint']
-gui = ['PySide2']
 
 [tool.flit.scripts]
 ng-cli = 'notification_generator.cli:main'

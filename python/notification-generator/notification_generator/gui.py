@@ -2,7 +2,7 @@
 """Generate a desktop notification message."""
 import sys
 
-from PySide2 import QtWidgets
+from PyQt5 import QtWidgets
 
 from notification_generator import dbus
 

@@ -1,7 +1,5 @@
-[MESSAGES CONTROL]
-# PySide2 makes heavy use of C extension modules. By default, Pylint doesn't
-# examine such code, as doing so is a security risk. One can whitelist a C
-# extension module with the extension-pkg-whitelist option, but doing so for
-# PySide2 causes a segmentation fault. (I suspect this is because of the
-# enormous size of said library.) Silencing the warning is a next best option.
-disable=c-extension-no-member
+[MASTER]
+# PyQt5 makes heavy use of C extension modules. By default, Pylint doesn't
+# examine such code, as doing so is a security risk. See:
+# https://pylint.readthedocs.io/en/latest/technical_reference/c_extensions.html
+extension-pkg-whitelist=PyQt5

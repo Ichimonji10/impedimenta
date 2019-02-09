@@ -1,7 +1,7 @@
 # coding=utf-8
 """Utilities for working with dbus."""
-from jeepney import DBusAddress, new_method_call
-from jeepney.integrate.blocking import connect_and_authenticate
+from PyQt5.QtCore import QMetaType, QVariant
+from PyQt5.QtDBus import QDBusArgument, QDBusInterface
 
 
 def send(summary: str, body: str) -> None:
@@ -10,25 +10,31 @@ def send(summary: str, body: str) -> None:
     :param summary: The summary text briefly describing the notification.
     :param body: The detailed body text.
     """
-    notifications_app = DBusAddress(
+    interface = QDBusInterface(
+        'org.freedesktop.Notifications',
         '/org/freedesktop/Notifications',
-        bus_name='org.freedesktop.Notifications',
-        interface='org.freedesktop.Notifications',
+        'org.freedesktop.Notifications',
     )
-    msg = new_method_call(
-        remote_obj=notifications_app,
-        method='Notify',
-        signature='susssasa{sv}i',
-        body=(
-            'Notification Generator',
-            0,
-            '',
-            summary,
-            body,
-            [],
-            {},
-            -1,
-        ),
+    response = interface.call(
+        'Notify',
+        'Notification Generator',
+        get_replaces_id(),
+        '',
+        summary,
+        body,
+        get_actions(),
+        {},
+        -1,
     )
-    connection = connect_and_authenticate(bus='SESSION')
-    connection.send_and_get_reply(msg)
+    print(response.errorName())
+    print(response.errorMessage())
+
+
+def get_actions():
+    return QDBusArgument([], QMetaType.QStringList)
+
+
+def get_replaces_id():
+    replaces_id = QVariant(0)
+    replaces_id.convert(QVariant.UInt)
+    return replaces_id
