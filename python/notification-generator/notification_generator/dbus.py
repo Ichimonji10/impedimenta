@@ -1,7 +1,8 @@
 # coding=utf-8
 """Utilities for working with dbus."""
-from PyQt5.QtCore import QMetaType, QVariant
-from PyQt5.QtDBus import QDBusArgument, QDBusInterface
+import gi
+gi.require_version('Gtk', '3.0')  # pylint:disable=wrong-import-position
+from gi.repository import GLib, Gio
 
 
 def send(summary: str, body: str) -> None:
@@ -10,31 +11,29 @@ def send(summary: str, body: str) -> None:
     :param summary: The summary text briefly describing the notification.
     :param body: The detailed body text.
     """
-    interface = QDBusInterface(
-        'org.freedesktop.Notifications',
-        '/org/freedesktop/Notifications',
-        'org.freedesktop.Notifications',
-    )
-    response = interface.call(
-        'Notify',
+    parameters = GLib.Variant('(susssasa{sv}i)', (
         'Notification Generator',
-        get_replaces_id(),
+        0,  # unsigned int
         '',
         summary,
         body,
-        get_actions(),
+        [],  # List[str]
         {},
         -1,
+    ))
+    proxy = Gio.DBusProxy.new_for_bus_sync(
+        bus_type=Gio.BusType.SESSION,
+        flags=Gio.DBusProxyFlags.NONE,
+        info=None,
+        name='org.freedesktop.Notifications',
+        object_path='/org/freedesktop/Notifications',
+        interface_name='org.freedesktop.Notifications',
+        cancellable=None,
     )
-    print(response.errorName())
-    print(response.errorMessage())
-
-
-def get_actions():
-    return QDBusArgument([], QMetaType.QStringList)
-
-
-def get_replaces_id():
-    replaces_id = QVariant(0)
-    replaces_id.convert(QVariant.UInt)
-    return replaces_id
+    proxy.call_sync(
+        method_name='Notify',
+        parameters=parameters,
+        flags=Gio.DBusCallFlags.NONE,
+        timeout_msec=-1,  # use default timeout
+        cancellable=None,
+    )

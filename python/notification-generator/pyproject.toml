@@ -13,7 +13,7 @@ description-file = 'README.rst'
 dist-name = 'notification-generator'
 home-page = 'https://www.ichimonji10.name'
 module = 'notification_generator'
-requires = ['PyQt5']
+requires = ['PyGObject']
 
 [tool.flit.metadata.requires-extra]
 dev = ['mypy', 'pylint']

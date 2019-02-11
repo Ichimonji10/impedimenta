@@ -1,5 +1,0 @@
-[MASTER]
-# PyQt5 makes heavy use of C extension modules. By default, Pylint doesn't
-# examine such code, as doing so is a security risk. See:
-# https://pylint.readthedocs.io/en/latest/technical_reference/c_extensions.html
-extension-pkg-whitelist=PyQt5
