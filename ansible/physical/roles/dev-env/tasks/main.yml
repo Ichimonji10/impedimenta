@@ -23,6 +23,7 @@
         - devtools
         - entr
         - git
+        - gobject-introspection
         - graphviz
         - ipv6calc
         - mypy
