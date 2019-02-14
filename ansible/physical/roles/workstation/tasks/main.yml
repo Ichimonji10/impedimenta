@@ -41,20 +41,34 @@
         - ttf-dejavu
         - unzip
         - virt-manager
-        - vlc
-        - wireshark-qt
+        - wireshark-gtk
         - xclip
         - zip
         - zoom
 
-        # The goal is to *not* pull in the entire KDE desktop environment. So,
-        # rather than installing plasma-{meta,kde-applications-meta}, we install
-        # a more targeted set of applications and meta-packages. See:
-        # https://wiki.archlinux.org/index.php/KDE#Installation
-        - dolphin
+        # The goal is to *not* pull in the entire GNOME desktop. Rather than
+        # installing gnome-extra, install gnome and whatever extra apps are
+        # desired. See: https://wiki.archlinux.org/index.php/GNOME#Installation
+        - gdm
+        - gimp
+        - gnome
+
+        # https://wiki.archlinux.org/index.php/GStreamer
+        - gst-plugins-base
         - gst-plugins-good
+        - gstreamer
         - gstreamer-vaapi
+    notify: Set install reason for optional dependencies
+
+  - name: Uninstall applications
+    pacman:
+      name:
+        - audacious
+        - chromium
+        - dolphin
+        - easytag
         - gwenview
+        - hexchat
         - juk
         - kcalc
         - kcharselect
@@ -63,37 +77,23 @@
         - konversation
         - krita
         - kwrite
-        - okular
-        - plasma-meta
-        - plasma-wayland-session
-        - print-manager
-        - sddm
-        - skanlite
-        - spectacle
-    notify: Set install reason for optional dependencies
-
-  - name: Uninstall applications
-    pacman:
-      name:
-        - audacious
-        - chromium
-        - easytag
-        - evince
-        - file-roller
-        - gimp
-        - gnome-keyring
-        - gvfs  # optional for thunar
-        - hexchat
         - light-locker
         - lightdm
         - lightdm-gtk-greeter-settings
         - network-manager-applet
+        - okular
         - p7zip
         - pavucontrol
+        - plasma-meta
+        - plasma-wayland-session
+        - print-manager
         - qt4  # formerly for vlc
-        - simple-scan
+        - sddm
+        - skanlite
+        - spectacle
         - unrar
-        - wireshark-gtk
+        - vlc
+        - wireshark-qt
         - xfce4
         - xfce4-goodies
       state: absent
@@ -109,7 +109,7 @@
     daemon_reload: true
   loop:
     - NetworkManager.service
-    - sddm.service
+    - gdm.service
   become: true
 
 - name: Enable and start CUPS
