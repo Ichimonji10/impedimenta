@@ -1,0 +1,39 @@
+# Maintainer: Jeremy Audet <jerebear@protonmail.com>
+
+pkgname=notification-generator-git
+pkgver=0  # see pkgver()
+pkgrel=1
+pkgdesc='Generate simple pop-up desktop notifications'
+arch=(any)
+url='https://github.com/Ichimonji10/impedimenta'
+license=(GPL3)
+options=(!emptydirs)
+makedepends=(flit)
+depends=(gtk3 python-gobject)
+source=('git+https://github.com/Ichimonji10/impedimenta.git')
+sha256sums=(SKIP)
+
+pkgver() {
+  git describe --always | sed 's/-/./g'
+}
+
+build() {
+  cd "${srcdir}/impedimenta/python/notification-generator"
+  flit build
+}
+
+package() {
+  cd "${srcdir}/impedimenta/python/notification-generator"
+  PIP_CONFIG_FILE=/dev/null pip install \
+    --compile \
+    --ignore-installed \
+    --isolated \
+    --no-deps \
+    --root="$pkgdir" \
+    dist/notification_generator-*.whl
+  install -Dm644 \
+    "name.ichimonji10.NotificationGenerator.desktop" \
+    "${pkgdir}/usr/share/applications/name.ichimonji10.NotificationGenerator.desktop"
+}
+
+# vim:set ts=2 sw=2 et:

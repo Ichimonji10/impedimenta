@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.1
+Name=Notification Generator
+Comment=Generate simple pop-up desktop notifications
+Exec=ng-gui
+Type=Application
+Categories=Utility
