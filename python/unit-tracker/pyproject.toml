@@ -1,0 +1,23 @@
+[build-system]
+requires = ['flit']
+build-backend = 'flit.buildapi'
+
+[tool.flit.metadata]
+author = 'Jeremy Audet'
+author-email = 'jerebear@protonmail.com'
+classifiers = [
+    'Development Status :: 1 - Planning',
+    'Programming Language :: Python :: 3 :: Only',
+]
+description-file = 'README.rst'
+dist-name = 'unit-tracker'
+home-page = 'https://www.ichimonji10.name'
+module = 'unit_tracker'
+requires = ['PyGObject']
+
+[tool.flit.metadata.requires-extra]
+dev = ['mypy', 'pylint']
+
+# [tool.flit.scripts]
+# ut-cli = 'unit_tracker.cli:main'
+# ut-gui = 'unit_tracker.gui:main'
