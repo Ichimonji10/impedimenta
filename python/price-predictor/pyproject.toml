@@ -1,0 +1,25 @@
+[build-system]
+requires = ['flit']
+build-backend = 'flit.buildapi'
+
+[tool.flit.metadata]
+author = 'Jeremy Audet'
+author-email = 'jerebear@protonmail.com'
+classifiers = [
+    'Development Status :: 1 - Planning',
+    'Programming Language :: Python :: 3 :: Only',
+]
+description-file = 'README.rst'
+dist-name = 'price-predictor'
+home-page = 'https://www.ichimonji10.name'
+module = 'pp'
+requires = ['numpy', 'pyxdg']
+
+[tool.flit.metadata.requires-extra]
+dev = ['mypy', 'pylint']
+
+[tool.flit.scripts]
+pp-dataset = 'pp.cli.pp_dataset:main'
+pp-db = 'pp.cli.pp_db:main'
+pp-model = 'pp.cli.pp_model:main'
+pp-predict = 'pp.cli.pp_predict:main'

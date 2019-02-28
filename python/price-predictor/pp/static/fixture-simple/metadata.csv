@@ -1,0 +1,5 @@
+column_name,column_type
+one,continuous
+two,continuous
+three,categorical
+fo ur,categorical
