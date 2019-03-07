@@ -1,6 +1,7 @@
 # coding=utf-8
 """Tools for analyses needed by the machine learning prediction algorithm."""
 import multiprocessing
+from typing import Dict, Mapping
 
 from movie_recommender import exceptions
 from movie_recommender.constants import GENRES
@@ -61,7 +62,7 @@ def analyze_user(user_id, overwrite):
             )
 
 
-def calc_sse(user_id):
+def calc_sse(user_id) -> Mapping[str, float]:
     """Calculate the SSE for each type of predictor for the given user.
 
     .. WARNING:: This function may take a long time to execute.
@@ -69,11 +70,14 @@ def calc_sse(user_id):
     :param user_id: A user ID.
     :return: A dict in the form ``{predictor_name: sum_of_squared_errors}``.
     """
-    sses = {}  # predictor name → sum of squared errors
+    # predictor name → sum of squared errors
+    sses: Dict[str, float] = {}
 
-    # Repeatedly select one movie to serve as the control, and make predictors
-    # from the remaining movies.
     for movie_id in read.rated_movies((user_id,)):
+
+        # Make a bunch of predictors, like year, genre:comedy, and
+        # genre:horror. Let them be based on all movies the current user has
+        # rated except the control.
         predictors = {'year': ml.make_year_predictor(user_id, movie_id)}
         for genre in GENRES:
             predictors[f'genre:{genre}'] = (
