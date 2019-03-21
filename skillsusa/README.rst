@@ -24,19 +24,18 @@ As per contest rules, all computers are disconnected from the internet. The
 computers may be networked together with an unmanaged switch, with a layout like
 the following::
 
-    +----------+     +---+
-    | client-1 | --- | s |
-    +----------+     | w |
-                     | i |
-    +----------+     | t |
-    | client-2 | --- | c |
-    +----------+     | h |
-                     .   .
-                     .   .
-                     .   .
-    +----------+     |   |
-    | server-1 | --- |   |
-    +----------+     +---+
+    ┌──────────┐     ┌───┐
+    │ client-1 ├─────┤ s │
+    └──────────┘     │ w │
+                     │ i │
+    ┌──────────┐     │ t │
+    │ client-2 ├─────┤ c │
+    └──────────┘     │ h │
+                     ╎   ╎
+                     ╎   ╎
+    ┌──────────┐     │   │
+    │ server-1 ├─────┤   │
+    └──────────┘     └───┘
 
 Name resolution is performed with the zero-configuration `LLMNR`_ protocol.
 
