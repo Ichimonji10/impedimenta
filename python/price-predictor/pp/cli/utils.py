@@ -5,6 +5,9 @@ import sys
 from multiprocessing import connection, cpu_count
 from typing import Optional, Union
 
+from pp.constants import CONTINUOUS_TYPE
+from pp.db import read
+
 
 def add_jobs_flag(parser: argparse.ArgumentParser) -> None:
     """Add the ``--jobs`` flag to a parser."""
@@ -57,6 +60,54 @@ def add_progress_flags(parser: argparse.ArgumentParser) -> None:
     group.set_defaults(progress=False)
 
 
+def column_name(arg: str) -> str:
+    """Verify the given arg is the name of a column.
+
+    This function is designed to be passed to argparse, as the argument to a
+    ``type`` parameter.
+
+    :param arg: A CLI argument.
+    :return: ``arg``.
+    :raise: ``ValueError`` if ``arg`` isn't the name of a column.
+    """
+    column_names = set(read.meta_column_names())
+    if arg not in column_names:
+        raise ValueError(f'{arg} not in {column_names}')
+    return arg
+
+
+def continuous_column_name(arg: str) -> str:
+    """Verify the given arg is the name of a continuous column.
+
+    This function is designed to be passed to argparse, as the argument to a
+    ``type`` parameter.
+
+    :param arg: A CLI argument.
+    :return: ``arg``.
+    :raise: ``ValueError`` if ``arg`` isn't the name of a continuous column.
+    """
+    column_names = set(read.meta_column_names(CONTINUOUS_TYPE))
+    if arg not in column_names:
+        raise ValueError(f'{arg} not in {column_names}')
+    return arg
+
+
+def positive_int(arg: str) -> int:
+    """Verify the given argument is a positive integer.
+
+    This function is designed to be passed to argparse, as the argument to a
+    ``type`` parameter.
+
+    :param arg: A CLI argument.
+    :return: ``arg``, cast to an integer.
+    :raise: ``ValueError`` if ``arg`` isn't a positive integer.
+    """
+    cast_arg = int(arg)
+    if cast_arg < 1:
+        raise ValueError(f'{cast_arg} < 1')
+    return cast_arg
+
+
 def report_progress(
         conn_out: connection.Connection,
         denominator: int,
@@ -89,3 +140,19 @@ def report_progress(
         # https://en.wikipedia.org/wiki/ANSI_escape_code
         print(f'\r\033[K{prefix}{percent:.0f}%', end='')
         sys.stdout.flush()
+
+
+def zip_code(arg: str) -> str:
+    """Verify the given argument is a known zip code.
+
+    This function is designed to be passed to argparse, as the argument to a
+    ``type`` parameter.
+
+    :param arg: A CLI argument.
+    :return: ``arg``.
+    :raise: ``ValueError`` if ``arg`` isn't a known zip code.
+    """
+    zip_codes = set(read.zip_codes())
+    if arg not in zip_codes:
+        raise ValueError(f'{zip_code} not in {zip_codes}')
+    return arg

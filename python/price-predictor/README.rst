@@ -24,7 +24,9 @@ You can now call the ``pp-*`` CLI utilities:
     pp-db normalize
 
     # Model "bathrooms" with non-null combinations of other columns.
-    mapfile -t in_cols < <(pp-model modelable | grep -v bathrooms)
+    mapfile -t in_cols < <(
+        pp-model columns --type continuous | grep -v bathrooms
+    )
     pp-model lin-reg bathrooms "${in_cols[@]}" --combinations --progress
 
     pp-predict bathrooms --denormalize

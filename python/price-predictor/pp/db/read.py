@@ -12,6 +12,7 @@ from pp.constants import (
     METADATA_FILE,
     MODELS_TABLE,
     STD_DEVS_TABLE,
+    STD_TRAINING_TABLE,
 )
 from pp.db import common
 
@@ -247,3 +248,23 @@ def model(output_column: str) -> common.ModelsRow:
     offset = row[2]
     input_columns = json.loads(row[3])
     return common.ModelsRow(output_column, cost, offset, input_columns)
+
+
+def zip_codes() -> Iterator[str]:
+    """Select zip codes from the :data:`pp.constants.STD_TRAINING_TABLE`."""
+    statement = f'SELECT DISTINCT(zipcode) FROM {STD_TRAINING_TABLE}'
+    with common.get_db_conn() as conn:
+        for row in conn.execute(statement):
+            yield row[0]
+
+
+def zip_code_price(zip_code: str) -> Iterator:
+    """Select the given zip code and price from the std training table."""
+    statement = f"""
+        SELECT zipcode, price FROM {STD_TRAINING_TABLE}
+        WHERE zipcode = ?
+    """
+    values = (zip_code,)
+    with common.get_db_conn() as conn:
+        for row in conn.execute(statement, values):
+            yield row

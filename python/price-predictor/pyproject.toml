@@ -13,7 +13,7 @@ description-file = 'README.rst'
 dist-name = 'price-predictor'
 home-page = 'https://www.ichimonji10.name'
 module = 'pp'
-requires = ['numpy', 'pyxdg']
+requires = ['matplotlib', 'numpy', 'pyxdg', 'scipy']
 
 [tool.flit.metadata.requires-extra]
 dev = ['mypy', 'pylint']

@@ -5,7 +5,7 @@ import subprocess
 import unittest
 
 from pp import datasets
-from pp.constants import CONTINUOUS_TYPE, TEST_SEED
+from pp.constants import CATEGORICAL_TYPE, CONTINUOUS_TYPE, TEST_SEED
 from pp.db import read
 from .utils import run, temp_xdg_data_home
 
@@ -20,12 +20,87 @@ class HelpFlagTestCase(unittest.TestCase):
         """Pass ``--help`` to ``pp-model`` and its subcommands."""
         commands = (
             'pp-model --help'.split(),
-            'pp-model modelable --help'.split(),
+            'pp-model columns --help'.split(),
+            'pp-model k-means --help'.split(),
             'pp-model lin-reg --help'.split(),
         )
         for command in commands:
             with self.subTest(command=command):
                 run(command)
+
+
+class ColumnsTestCase(unittest.TestCase):
+    """Test the ``columns`` subcommand."""
+
+    @temp_xdg_data_home()
+    def test_set_up(self):
+        """Set up data and call tests.
+
+        This method is used instead of the more typical ``setUpClass`` so that
+        the ``addCleanup`` instance method may be used.
+        """
+        dataset_name = datasets.FixtureSimpleDS().name
+        run(f'pp-dataset install {dataset_name}'.split())
+        run(f'pp-db cpop {dataset_name} --seed {TEST_SEED}'.split())
+        run('pp-db normalize'.split())
+        for type_ in (None, CATEGORICAL_TYPE, CONTINUOUS_TYPE):
+            with self.subTest(flag=None):
+                self.do_test(type_)
+
+    def do_test(self, type_):
+        """Execute the actual test."""
+        command = ['pp-model', 'columns']
+        if type_:
+            command += ['--type', type_]
+        actual = set(run(command))
+        target = set(read.meta_column_names(type_))
+        self.assertEqual(actual, target)
+
+
+class KMeansTestCase(unittest.TestCase):
+    """Test the ``k-means`` subcommand."""
+
+    def setUp(self):
+        """Install a dataset, and create and populate the database."""
+        with contextlib.ExitStack() as stack:
+            stack.enter_context(temp_xdg_data_home())
+            self.addCleanup(stack.pop_all().close)
+        dataset_name = datasets.FixtureKingCountyDS().name
+        run(f'pp-dataset install {dataset_name}'.split())
+        run(f'pp-db cpop {dataset_name} --seed {TEST_SEED}'.split())
+        run('pp-db normalize'.split())
+        self.columns = ('bathrooms', 'price', 'sqft_living')
+
+    def test_invalid_columns(self):
+        """Cluster invalid columns."""
+        with self.assertRaises(subprocess.CalledProcessError):
+            run(('pp-model', 'k-means', 'foo') + self.columns)
+
+    def test_no_flags(self):
+        """Don't pass any flags."""
+        run(('pp-model', 'k-means') + self.columns)
+
+    def test_k_flag(self):
+        """Pass the ``-k`` flag."""
+        run(('pp-model', 'k-means', '-k', '2') + self.columns)
+
+    def test_clusters_flag(self):
+        """Pass the ``--clusters`` flag."""
+        run(('pp-model', 'k-means', '--clusters', '2') + self.columns)
+
+    def test_one_column_plot_flag(self):
+        """Pass one column and the ``--plot`` flag."""
+        with self.assertRaises(subprocess.CalledProcessError):
+            run(('pp-model', 'k-means', '--plot') + self.columns[:1])
+
+    def test_two_columns_plot_flag(self):
+        """Pass two columns and the ``--plot`` flag."""
+        run(('pp-model', 'k-means', '--plot') + self.columns[:2])
+
+    def test_three_columns_plot_flag(self):
+        """Pass three columns and the ``--plot`` flag."""
+        with self.assertRaises(subprocess.CalledProcessError):
+            run(('pp-model', 'k-means', '--plot') + self.columns[:3])
 
 
 class LinRegTestCase(unittest.TestCase):
@@ -92,18 +167,3 @@ class LinRegTestCase(unittest.TestCase):
     def test_no_output_cols(self):
         """Don't specify any output columns."""
         run(('pp-model', 'lin-reg', self.columns[0]))
-
-
-class ModelableTestCase(unittest.TestCase):
-    """Test the ``modelable`` subcommand."""
-
-    @temp_xdg_data_home()
-    def test_no_flags(self):
-        """Don't pass any flags."""
-        dataset_name = datasets.FixtureSimpleDS().name
-        run(f'pp-dataset install {dataset_name}'.split())
-        run(f'pp-db cpop {dataset_name} --seed {TEST_SEED}'.split())
-        run('pp-db normalize'.split())
-        actual = set(run('pp-model modelable'.split()))
-        target = set(read.meta_column_names(CONTINUOUS_TYPE))
-        self.assertEqual(actual, target)
