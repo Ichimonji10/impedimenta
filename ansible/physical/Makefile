@@ -1,5 +1,4 @@
 # coding=utf-8
-CPU_COUNT=$(shell nproc)
 FIND_PATHS='(' -path ./inventory -o -path './host_vars/*' -o -type f -name '*.yml' ')'
 
 help:
@@ -33,7 +32,7 @@ lint-ansible-lint:
 	ansible-lint -x 405,501,701 site.yml
 
 lint-pylint:
-	find . -type f -name '*.py' -print0 | xargs -0 pylint -j $(CPU_COUNT)
+	find . -type f -name '*.py' -print0 | xargs -0 pylint
 
 lint-shellcheck:
 	find . -type d -name templates -prune -o -type f -name '*.sh' -print0 | xargs -0 shellcheck
