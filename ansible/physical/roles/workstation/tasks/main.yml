@@ -42,7 +42,7 @@
         - ttf-dejavu
         - unzip
         - virt-manager
-        - wireshark-gtk
+        - wireshark-qt
         - xclip
         - zip
         - zoom
@@ -94,7 +94,6 @@
         - spectacle
         - unrar
         - vlc
-        - wireshark-qt
         - xfce4
         - xfce4-goodies
       state: absent
