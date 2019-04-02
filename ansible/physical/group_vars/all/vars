@@ -42,6 +42,7 @@ custom_repos:
       - brscan4
       - mnemosyne
       - ms-sys
+      - signal
       - zoom
 
   - path_prefix: /srv/packages.ichimonji10.name/arch-linux

@@ -35,6 +35,7 @@
         - openssh
         - picocom
         - pulseaudio
+        - signal
         - sshfs
         - steam
         - texlive-core  # for mnemosyne
