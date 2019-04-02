@@ -28,5 +28,4 @@ Variables:
     The name of the LAN network interface.
 
 ``netctl_routers_wlan_if``
-    The name of a WLAN network interface. (An insecure WAP will be partially
-    created.)
+    The name of a WLAN network interface.

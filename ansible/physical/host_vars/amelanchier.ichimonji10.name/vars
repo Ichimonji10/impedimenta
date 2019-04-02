@@ -1,13 +1,10 @@
 dnsmasq_dmz_if: enp3s0
-dnsmasq_insecure_wlan_if: wlp4s0
 dnsmasq_lan_if: enp2s0
-dnsmasq_secure_wlan_if: '{{ dnsmasq_insecure_wlan_if }}_secure'
+dnsmasq_secure_wlan_if: wlp4s0
 
 dynamic_dns_urls: '{{ vault_dynamic_dns_urls }}'
 
-hostapd_insecure_if: wlp4s0
-hostapd_insecure_name: HouseOfCuddles
-hostapd_secure_if: '{{ hostapd_insecure_if }}_secure'
+hostapd_secure_if: wlp4s0
 hostapd_secure_name: HomeOfCuddles
 hostapd_secure_passphrase: '{{ vault_hostapd_secure_passphrase }}'
 
@@ -19,5 +16,4 @@ netctl_routers_wlan_if: wlp4s0
 nftables_routers_dmz_if: enp3s0
 nftables_routers_lan_if: enp2s0
 nftables_routers_wan_if: enp1s0
-nftables_routers_insecure_wlan_if: wlp4s0
-nftables_routers_secure_wlan_if: '{{ nftables_routers_insecure_wlan_if }}_secure'
+nftables_routers_secure_wlan_if: wlp4s0

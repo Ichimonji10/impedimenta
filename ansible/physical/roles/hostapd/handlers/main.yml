@@ -1,10 +1,4 @@
 ---
-# `daemon_reload: true` doesn't produce a "changed" status.
-- name: Reload systemd
-  systemd:
-    daemon_reload: true
-  become: true
-
 - name: Restart hostapd
   systemd:
     name: hostapd.service

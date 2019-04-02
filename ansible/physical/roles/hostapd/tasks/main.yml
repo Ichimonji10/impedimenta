@@ -1,5 +1,4 @@
 ---
-# NOTE: Execute this play only over a wired connection.
 - block:
 
     - name: Install hostapd
@@ -15,22 +14,19 @@
         mode: 0600
       notify: Restart hostapd
       when:
-        - hostapd_insecure_if is defined
-        - hostapd_insecure_name is defined
         - hostapd_secure_if is defined
         - hostapd_secure_name is defined
         - hostapd_secure_passphrase is defined
 
-    - name: Install hostapd override file
-      copy:
-        src: hostapd.service.d
-        dest: /etc/systemd/system/
+    - name: Delete hostapd.service unit override file
+      file:
+        path: /etc/systemd/system/hostapd.service.d
+        state: absent
 
-    - name: Install wlan-secure unit file
-      template:
-        src: wlan-secure.service
-        dest: /etc/systemd/system/
-      when: hostapd_secure_if is defined
+    - name: Delete wlan-secure.service
+      file:
+        path: /etc/systemd/system/wlan-secure.service
+        state: absent
 
     - name: Start and enable hostapd
       systemd:

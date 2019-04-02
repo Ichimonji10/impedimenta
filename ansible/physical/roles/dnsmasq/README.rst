@@ -13,8 +13,5 @@ Variables:
 ``dnsmasq_dmz_if``
     The name of the DMZ interface.
 
-``dnsmasq_insecure_wlan_if``
-    The name of the insecure wireless interface.
-
 ``dnsmasq_secure_wlan_if``
     The name of the secure wireless interface.

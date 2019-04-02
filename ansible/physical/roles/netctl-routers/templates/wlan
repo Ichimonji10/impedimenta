@@ -3,23 +3,9 @@
 # little different: we ignore layer 2. Why do we do this? Because of hostapd.
 # Hostapd requires that it be able to configure the layer 2 properties of the
 # interface it's managing.
-#
-# Why not let hostapd configure the layer 2 properties of the interface it's
-# managing, and then configure the layer 3 properties here? Good question. I
-# don't remember why this approach is used. (The alternative probably didn't
-# work.)
-#
-# This profile only configures the primary interface used by hostapd. Hostapd is
-# also capable of creating secondary logical interfaces. This is especially
-# useful when one wants to create multiple wireless network on a single physical
-# interface. (Look up "BSS.") Each secondary interface must have an IP address
-# to be useful, and unfortunately, netctl isn't really compatible with such a
-# use case. A solution is to write a simple systemd unit for each secondary
-# interface, where the job of each systemd unit is just to configure the IP
-# address of a logical interface.
-Description='WLAN interface (insecure infrastructure access point)'
+Description='WLAN interface (secure access point)'
 Connection=ethernet
 Interface={{ netctl_routers_wlan_if }}
 IP=static
-Address=(192.168.12.1/24)
+Address=(192.168.13.1/24)
 SkipNoCarrier=yes
