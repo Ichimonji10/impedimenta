@@ -1,5 +1,4 @@
 # coding=utf-8
-FIND_PATHS='(' -path ./inventory -o -path './host_vars/*' -o -type f -name '*.yml' ')'
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of:"
