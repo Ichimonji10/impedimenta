@@ -12,18 +12,20 @@
 # by default." See: https://wiki.archlinux.org/index.php/Libvirt#Using_polkit
 - name: Append "libvirt" to the list of groups
   set_fact:
-    user_ichimonji10_groups: "{{ user_ichimonji10_groups + ['libvirt'] }}"
+    user_ichimonji10_groups: '{{ user_ichimonji10_groups + ["libvirt"] }}'
   when: "'vm-hosts' in group_names"
 
 - name: Append "uucp" and "wireshark" to the list of groups
   set_fact:
-    user_ichimonji10_groups: >-
-      "{{ user_ichimonji10_groups + ['uucp', 'wireshark'] }}"
+    user_ichimonji10_groups: '{{ user_ichimonji10_groups + [item] }}'
+  loop:
+    - uucp
+    - wireshark
   when: "'workstations' in group_names"
 
 - name: Append "transmission" the the list of groups
   set_fact:
-    user_ichimonji10_groups: "{{ user_ichimonji10_groups + ['transmission'] }}"
+    user_ichimonji10_groups: '{{ user_ichimonji10_groups + ["transmission"] }}'
   when: "'bittorrent-hosts' in group_names"
 
 - name: Create ichimonji10
