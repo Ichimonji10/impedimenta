@@ -7,7 +7,6 @@
 
 - hosts: all
   roles:
-  - check-units
   - crda
   - essential-apps
   - intel-ucode
