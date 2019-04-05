@@ -16,7 +16,7 @@
       user:
         name: subsonic
         groups:
-          - ichimonji10
+          - media
           - transmission
 
     - name: Create a podcasts directory

@@ -3,6 +3,7 @@
 # The essential-apps role installs tools referenced by various config files.
 # The group-wheel role configures the "wheel" group.
 # The libvirtd role creates the libvirt group.
+# The group-media role creates the media group.
 # The workstation role creates the uucp group when installing picocom.
 dependencies:
   - role: dev-env
@@ -11,6 +12,8 @@ dependencies:
   - role: group-wheel
   - role: libvirtd
     when: "'vm-hosts' in group_names"
+  - role: group-media
+    when: "'webservers' in group_names"
   - role: transmission
     when: "'bittorrent-hosts' in group_names"
   - role: workstation
