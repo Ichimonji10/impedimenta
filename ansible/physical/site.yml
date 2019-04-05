@@ -79,4 +79,5 @@
 - hosts: webservers
   roles:
   - borg-backup-system
+  - jellyfin
   - subsonic
