@@ -1,4 +1,4 @@
 ---
-# The transmission role creates the transmission group.
+# The group-media role creates the media group.
 dependencies:
-  - transmission
+  - group-media

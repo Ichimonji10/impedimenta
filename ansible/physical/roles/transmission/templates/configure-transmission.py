@@ -54,8 +54,9 @@ def main():
     config['speed-limit-up-enabled'] = True
 
     # Normalize paths exposed by web interface.
-    config['download-dir'] = _get_downloads_path()
+    config['download-dir'] = '/srv/media/torrents'
     config['incomplete-dir'] = _get_downloads_path()
+    config['incomplete-dir-enabled'] = True
 
     with open(settings_path, 'w') as handle:
         json.dump(config, handle, indent=4, sort_keys=True)

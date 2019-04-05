@@ -5,6 +5,12 @@
     pacman:
       name: transmission-cli
 
+  - name: Let transmission see media files
+    user:
+      name: transmission
+      groups:
+        - media
+
   - name: Install script for configuring transmission
     template:
       src: configure-transmission.py

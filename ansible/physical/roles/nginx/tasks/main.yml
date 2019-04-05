@@ -5,20 +5,12 @@
     pacman:
       name: nginx
 
-  - name: Let nginx access transmission's files (esp. downloads)
+  - name: Let nginx access media files (esp. torrents)
     user:
       name: http
-      groups: transmission
-      append: true
+      groups:
+        - media
       create_home: false
-
-  - name: Delete outdated htpasswd file for transmission.ichimonji10.name
-    file:
-      path: >-
-        /etc/nginx/{{
-          'transmission.ichimonji10.name/downloads' | systemd_escape
-        }}.htpasswd
-      state: absent
 
   - name: Install htpasswd file for transmission.ichimonji10.name
     htpasswd:

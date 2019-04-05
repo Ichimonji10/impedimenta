@@ -9,15 +9,11 @@
         group: subsonic
         mode: 'o-rwx'
 
-    # It'd be *very* nice if Subsonic didn't have visibility into these users'
-    # files. Perhaps a dedicated user could be created that could host these
-    # files?
     - name: Let Subsonic see media files
       user:
         name: subsonic
         groups:
           - media
-          - transmission
 
     - name: Create a podcasts directory
       file:
