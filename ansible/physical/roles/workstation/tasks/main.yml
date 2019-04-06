@@ -42,6 +42,7 @@
         - ttf-dejavu
         - unzip
         - virt-manager
+        - vlc
         - wireshark-qt
         - xclip
         - zip
@@ -93,7 +94,6 @@
         - skanlite
         - spectacle
         - unrar
-        - vlc
         - xfce4
         - xfce4-goodies
       state: absent
