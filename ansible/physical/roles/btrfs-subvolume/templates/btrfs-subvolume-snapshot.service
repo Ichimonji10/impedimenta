@@ -1,6 +1,0 @@
-[Unit]
-Description=Snapshot {{ path }}
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/bash -c '/usr/bin/btrfs subvolume snapshot "{{ path }}" "{{ path }}-$(date --iso-8601=minutes)"'

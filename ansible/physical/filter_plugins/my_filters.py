@@ -24,24 +24,25 @@ def set_escaped_paths(btrfs_subvolumes):
     Given this data structure::
 
         [
-            {'path': '/foo/bar'},
-            {'path': '/biz/baz', 'unrelated': 'data'},
+            {'path': '/mnt/foo-bar'},
+            {'path': '/mnt/biz-baz'},
         ]
 
     Insert ``escaped_path`` into each dict::
 
         [
-            {'path': '/foo/bar', 'escaped_path': '…'},
-            {'path': '/biz/baz', 'escaped_path': '…', 'unrelated': 'data'},
+            {'path': '/mnt/foo-bar', 'escaped_path': 'mnt-foo\x2dbar'},
+            {'path': '/mnt/biz-baz', 'escaped_path': 'mnt-biz\x2dbaz'},
         ]
 
-    Return the updated data structure.
+    And return the updated data structure. The passed-in argument is mutated in
+    place.
     """
     # It should be OK to mutate the arguments to this function, as they're
     # passed in by value, not reference.
     for btrfs_subvolume in btrfs_subvolumes:
-        btrfs_subvolume['escaped_path'] = (
-            systemd_escape(btrfs_subvolume['path'])
+        btrfs_subvolume['escaped_path'] = systemd_escape(
+            btrfs_subvolume['path']
         )
     return btrfs_subvolumes
 
@@ -50,6 +51,6 @@ def systemd_escape(path):
     """Call systemd-escape(1) on the given path, and return the result."""
     return (
         subprocess
-        .check_output(('systemd-escape', '--path', path))
+        .check_output(('systemd-escape', '--path', '--', path))
         .strip()
         .decode('utf-8'))

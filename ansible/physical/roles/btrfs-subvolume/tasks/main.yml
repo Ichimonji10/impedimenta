@@ -1,15 +1,4 @@
 ---
-# There's three conerns to consider when deciding how to name units:
-#
-# * Compatibility. Various file systems place restrictions on which characters
-#   may appear in file names. Unit names should use a conservative set of
-#   characters, so as to avoid violating compatibility constraints.
-# * Uniqueness. Unit names should never conflict with each other.
-# * Usability. Unit names should be human-readable.
-#
-# A hash is compatible and unique. A (good) path transformation is compatible
-# and usable. This module uses the latter.
-
 - name: Install btrfs-progs
   pacman:
     name: btrfs-progs
@@ -20,8 +9,30 @@
   set_fact:
     btrfs_subvolumes: '{{ btrfs_subvolumes | set_escaped_paths }}'
 
+- name: Install script to delete old subvolumes
+  copy:
+    src: btrfs-subvolume-delete.py
+    dest: /usr/local/bin/
+    mode: 0755
+  become: true
+
+- name: Install template units to create and delete snapshots
+  copy:
+    src: '{{ item }}'
+    dest: /etc/systemd/system/{{ item }}
+  loop:
+    - btrfs-subvolume-delete@.service
+    - btrfs-subvolume-delete@.timer
+    - btrfs-subvolume-snapshot@.service
+    - btrfs-subvolume-snapshot@.timer
+  become: true
+
 - include_tasks: btrfs-subvolume-delete.yml
   loop: '{{ btrfs_subvolumes }}'
+  loop_control:
+    loop_var: btrfs_subvolume
 
 - include_tasks: btrfs-subvolume-snapshot.yml
   loop: '{{ btrfs_subvolumes }}'
+  loop_control:
+    loop_var: btrfs_subvolume

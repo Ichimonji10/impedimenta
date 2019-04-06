@@ -1,5 +1,5 @@
 [Unit]
-Description=Periodically delete old snapshots of {{ path }}
+Description=Periodically delete old snapshots of %f
 
 [Timer]
 # See: systemd.time(7)

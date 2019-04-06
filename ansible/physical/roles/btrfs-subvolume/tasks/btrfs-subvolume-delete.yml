@@ -1,60 +1,22 @@
 ---
-- block:
-
-  - name: Install a script to delete old subvolumes
-    copy:
-      src: btrfs-subvolume-delete.py
-      dest: /usr/local/bin/
-      mode: 0755
-
-  - name: Install .service to delete old snapshots of {{ item.path }}
-    template:
-      src: btrfs-subvolume-delete.service
-      dest: >
-        /etc/systemd/system/btrfs-subvolume-delete-{{ item.escaped_path
-        }}.service
-    vars:
-      path: '{{ item.path }}'
-      days: '{{ item.days|default(14) }}'
-      weeks: '{{ item.weeks|default(8) }}'
-
-  - name: Install .timer to delete old snapshots of {{ item.path }}
-    template:
-      src: btrfs-subvolume-delete.timer
-      dest: >
-        /etc/systemd/system/btrfs-subvolume-delete-{{ item.escaped_path }}.timer
-    vars:
-      path: '{{ item.path }}'
-
-  - name: Start and enable .timer to delete old snapshots of {{ item.path }}
-    systemd:
-      name: btrfs-subvolume-delete-{{ item.escaped_path }}.timer
-      state: started
-      enabled: true
-      daemon_reload: true
-
-  when: item.delete | default(true)
+- name: >
+    Start and enable
+    btrfs-subvolume-delete@{{ btrfs_subvolume.escaped_path }}.timer
+  systemd:
+    name: btrfs-subvolume-delete@{{ btrfs_subvolume.escaped_path }}.timer
+    state: started
+    enabled: true
+    daemon_reload: true
+  when: btrfs_subvolume.delete | default(true)
   become: true
 
-- block:
-
-    - name: Delete .service to delete old snapshots of {{ item.path }}
-      file:
-        path: >
-          /etc/systemd/system/btrfs-subvolume-delete-{{ item.escaped_path
-          }}.service
-        state: absent
-      notify: Reload systemd
-
-    - name: Install .timer to delete old snapshots of {{ item.path }}
-      file:
-        path: >
-          /etc/systemd/system/btrfs-subvolume-delete-{{ item.escaped_path
-          }}.timer
-        state: absent
-      notify: Reload systemd
-
-  when:
-    - item.delete is defined
-    - not item.delete
+- name: >
+    Stop and disable
+    btrfs-subvolume-delete@{{ btrfs_subvolume.escaped_path }}.timer
+  systemd:
+    name: btrfs-subvolume-delete@{{ btrfs_subvolume.escaped_path }}.timer
+    state: stopped
+    enabled: false
+    daemon_reload: true
+  when: not (btrfs_subvolume.delete | default(true))
   become: true

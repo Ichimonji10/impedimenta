@@ -42,12 +42,11 @@ def find_prune_snapshots(path, days, weeks):
     """Find and prune snapshots."""
     now = datetime.datetime.now(datetime.timezone.utc)
     ppath = pathlib.PosixPath(path).resolve()
-    basename = ppath.parts[-1]
     # For some reason, Pylint thinks that ppath is a PurePath object, instead
     # of a PosixPath object. And PurePath objects don't have a glob() method.
-    snapshots = ppath.parent.glob(basename + '-*')  # pylint:disable=no-member
+    snapshots = ppath.glob('*')  # pylint:disable=no-member
     for snapshot in snapshots:
-        created = _get_datetime(snapshot.parts[-1].lstrip(basename + '-'))
+        created = _get_datetime(snapshot.parts[-1])
         age = now - created
         if age <= datetime.timedelta(days=int(days)):
             continue

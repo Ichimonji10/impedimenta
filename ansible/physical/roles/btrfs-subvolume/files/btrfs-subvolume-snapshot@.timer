@@ -1,5 +1,5 @@
 [Unit]
-Description=Periodically snapshot {{ path }}
+Description=Periodically snapshot %f
 
 [Timer]
 # See: systemd.time(7)

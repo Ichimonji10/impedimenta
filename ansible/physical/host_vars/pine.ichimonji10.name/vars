@@ -1,19 +1,12 @@
 ---
 btrfs_paths:
   - /mnt/btrfs
+
 btrfs_subvolumes:
-- path: '{{ btrfs_path[0] }}/home'
-- path: '{{ btrfs_path[0] }}/root'
-  days: 5
-  weeks: 2
-  snapshot: false
-- path: '{{ btrfs_path[0] }}/srv/subsonic'
-  days: 5
-  weeks: 2
-  snapshot: false
-- path: '{{ btrfs_path[0] }}/var/lib/transmission'
-  days: 5
-  weeks: 2
+  - path: '{{ btrfs_paths[0] }}/srv-media'
+  - path: '{{ btrfs_paths[0] }}/-srv-media'
+    snapshot: false
+    delete: false
 
 dynamic_dns_urls: '{{ vault_dynamic_dns_urls }}'
 
