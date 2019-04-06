@@ -31,6 +31,7 @@
 - name: Create ichimonji10
   user:
     name: ichimonji10
+    comment: Jerebear
     groups: "{{ user_ichimonji10_groups }}"
   become: true
 
