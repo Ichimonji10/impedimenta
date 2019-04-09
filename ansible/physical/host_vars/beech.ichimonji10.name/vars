@@ -2,6 +2,17 @@
 btrfs_paths:
   - /mnt/btrfs
 
+btrfs_subvolumes:
+  - path: '{{ btrfs_paths[0] }}/home-ichimonji10-Audiobooks'
+  - path: '{{ btrfs_paths[0] }}/home-ichimonji10-Books'
+  - path: '{{ btrfs_paths[0] }}/home-ichimonji10-Documents'
+  - path: '{{ btrfs_paths[0] }}/home-ichimonji10-Games'
+  - path: '{{ btrfs_paths[0] }}/home-ichimonji10-Movies'
+  - path: '{{ btrfs_paths[0] }}/home-ichimonji10-Music'
+  - path: '{{ btrfs_paths[0] }}/home-ichimonji10-OSs'
+  - path: '{{ btrfs_paths[0] }}/home-ichimonji10-Pictures'
+  - path: '{{ btrfs_paths[0] }}/home-ichimonji10-TV\x20Shows'
+
 syncthing_usernames:
   - ichimonji10
 
