@@ -3,4 +3,4 @@ Description=Delete old snapshots of %f
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/bash -c '/usr/local/bin/btrfs-subvolume-delete.py "%f/../snapshots/$(basename "%f")" 7 4'
+ExecStart=/usr/bin/bash -c '/usr/local/bin/btrfs-subvolume-delete.py "%f/../snapshots/$(basename "%f")" 3 4'
