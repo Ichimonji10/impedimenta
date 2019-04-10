@@ -35,7 +35,7 @@
         - openssh
         - picocom
         - pulseaudio
-        - signal
+        - signal-desktop-bin
         - sshfs
         - steam
         - texlive-core  # for mnemosyne
@@ -91,6 +91,7 @@
         - print-manager
         - qt4  # formerly for vlc
         - sddm
+        - signal
         - skanlite
         - spectacle
         - unrar

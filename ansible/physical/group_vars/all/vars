@@ -38,11 +38,18 @@ custom_repos:
       - systemd-boot-pacman-hook
 
       # workstation role
+      #
+      # Packaging signal 1.23.2 causes an error:
+      #
+      #   electron -v errors out with "cannot open display" on headless systems.
+      #   Maybe try pacman -Q electron | cut -d' ' -f2 | cut -d'-' -f1 instead.
+      #
+      # Thus, signal-desktop-bin is packaged instead.
       - brother-hll2395dw
       - brscan4
       - mnemosyne
       - ms-sys
-      - signal
+      - signal-desktop-bin
       - zoom
 
   - path_prefix: /srv/packages.ichimonji10.name/arch-linux
