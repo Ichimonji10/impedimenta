@@ -19,9 +19,6 @@ If a repository's contents should be protected (e.g. via an htpasswd file), then
 the application which serves the repository is responsible for configuring said
 protection.
 
-.. WARNING:: aurutils is installed via the `aurutils-git`_ package. When
-    aurutils version 2 is released, this can be fixed.
-
 Sample Playbook
 ---------------
 
@@ -316,7 +313,6 @@ used to package gog-pyre:
     sudo -u custom-repo-user repo-add ichi-private.db.tar.xz \
         gog-pyre-1.50427.11957.23366-1-x86_64.pkg.tar.xz
 
-.. _aurutils-git: https://aur.archlinux.org/packages/aurutils-git/
 .. _gog api documentation: https://gogapidocs.readthedocs.io/en/latest/index.html
 .. _gog downloader: https://www.gog.com/downloader
 .. _gog galaxy: https://www.gog.com/galaxy
