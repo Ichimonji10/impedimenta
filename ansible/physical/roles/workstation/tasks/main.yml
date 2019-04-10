@@ -1,13 +1,50 @@
 ---
 - block:
 
+  - name: Uninstall old video drivers
+    pacman:
+      name: mesa-vdpau
+      state: absent
+
   - name: Install video drivers
     pacman:
       name: '{{ workstation_video_drivers }}'
 
-  - name: Uninstall old video drivers
+  - name: Uninstall applications
     pacman:
-      name: mesa-vdpau
+      name:
+        - audacious
+        - chromium
+        - dolphin
+        - easytag
+        - gwenview
+        - hexchat
+        - juk
+        - kcalc
+        - kcharselect
+        - kgraphviewer
+        - konsole
+        - konversation
+        - krita
+        - kwrite
+        - light-locker
+        - lightdm
+        - lightdm-gtk-greeter-settings
+        - network-manager-applet
+        - okular
+        - p7zip
+        - pavucontrol
+        - plasma-meta
+        - plasma-wayland-session
+        - print-manager
+        - qt4  # formerly for vlc
+        - sddm
+        - signal
+        - skanlite
+        - spectacle
+        - unrar
+        - xfce4
+        - xfce4-goodies
       state: absent
 
   # NOTE: We assume base and base-devel are already present, and were enabled at
@@ -61,43 +98,6 @@
         - gstreamer
         - gstreamer-vaapi
     notify: Set install reason for optional dependencies
-
-  - name: Uninstall applications
-    pacman:
-      name:
-        - audacious
-        - chromium
-        - dolphin
-        - easytag
-        - gwenview
-        - hexchat
-        - juk
-        - kcalc
-        - kcharselect
-        - kgraphviewer
-        - konsole
-        - konversation
-        - krita
-        - kwrite
-        - light-locker
-        - lightdm
-        - lightdm-gtk-greeter-settings
-        - network-manager-applet
-        - okular
-        - p7zip
-        - pavucontrol
-        - plasma-meta
-        - plasma-wayland-session
-        - print-manager
-        - qt4  # formerly for vlc
-        - sddm
-        - signal
-        - skanlite
-        - spectacle
-        - unrar
-        - xfce4
-        - xfce4-goodies
-      state: absent
 
   become: true
 
