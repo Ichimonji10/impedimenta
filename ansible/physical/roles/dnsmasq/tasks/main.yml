@@ -12,6 +12,7 @@
     template:
       src: dnsmasq.conf
       dest: /etc/dnsmasq.conf
+      validate: 'dnsmasq --test --conf-file=%s'
     notify: Restart dnsmasq
     when:
       - dnsmasq_lan_if is defined
