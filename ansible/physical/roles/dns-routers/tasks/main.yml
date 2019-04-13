@@ -26,4 +26,11 @@
       enabled: true
       daemon_reload: true
 
+  - name: Install resolvconf configuration file
+    copy:
+      src: resolvconf.conf
+      dest: /etc/resolvconf.conf
+      validate: 'bash -n %s'
+    notify: Regenerate /etc/resolv.conf
+
   become: true
