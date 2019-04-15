@@ -8,3 +8,5 @@ borg_backup_users:
     local_user: ichimonji10
     remote_host: usw-s001.rsync.net
     remote_user: 1025
+
+# vim:ft=yaml:

@@ -4,3 +4,5 @@ borg_backup_system_local_paths:
 borg_backup_system_passphrase: '{{ vault_borg_backup_system_passphrase }}'
 borg_backup_system_remote_host: usw-s001.rsync.net
 borg_backup_system_remote_user: 1025
+
+# vim:ft=yaml:

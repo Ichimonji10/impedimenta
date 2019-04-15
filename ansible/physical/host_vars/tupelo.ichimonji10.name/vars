@@ -11,3 +11,5 @@ workstation_video_drivers:
   - lib32-mesa
   # https://wiki.archlinux.org/index.php/Vulkan
   - vulkan-radeon
+
+# vim:ft=yaml:
