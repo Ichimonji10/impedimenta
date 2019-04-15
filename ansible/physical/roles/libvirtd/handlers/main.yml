@@ -1,16 +1,6 @@
 ---
 - name: Set install reason for packages
-  command: 'pacman -D --asdeps qemu dnsmasq openbsd-netcat'
-  become: true
-
-- name: Enable IPv4 forwarding now
-  command: 'sysctl --load=/etc/sysctl.d/50-libvirtd-networking.conf'
-  become: true
-
-- name: Restart dnsmasq
-  systemd:
-    name: dnsmasq.service
-    state: restarted
+  command: 'pacman -D --asdeps qemu openbsd-netcat'
   become: true
 
 - name: Restart libvirtd

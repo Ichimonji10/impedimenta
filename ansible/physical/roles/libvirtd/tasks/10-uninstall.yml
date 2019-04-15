@@ -1,0 +1,16 @@
+---
+- block:
+
+    - name: Delete {{ item }}
+      file:
+        path: '{{ item }}'
+        state: absent
+      loop:
+        - /etc/sysctl.d/50-libvirtd-networking.conf
+        - /etc/sysctl.d/50-vm-routing.conf
+        - /etc/systemd/system/dnsmasq.service.d
+        - /etc/systemd/system/libvirtd-networking.service
+        - /usr/local/bin/libvirtd-networking-start
+        - /usr/local/bin/libvirtd-networking-stop
+
+  become: true
