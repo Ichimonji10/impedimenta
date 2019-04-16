@@ -29,7 +29,7 @@
   - name: Install resolvconf configuration file
     copy:
       src: resolvconf.conf
-      dest: /etc/resolvconf.conf
+      dest: /etc/
       validate: 'bash -n %s'
     notify: Regenerate /etc/resolv.conf
 
