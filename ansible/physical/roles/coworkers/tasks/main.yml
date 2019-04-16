@@ -1,3 +1,12 @@
 ---
-- include_tasks: create-coworker.yml
+- name: Assert required variables are present
+  assert:
+    that: coworkers is defined
+
+- name: Delete coworkers accounts
+  user:
+    name: '{{ item }}'
+    state: absent
+    remove: true
   loop: '{{ coworkers }}'
+  become: true
