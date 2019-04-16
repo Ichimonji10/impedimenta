@@ -1,0 +1,66 @@
+---
+- name: Verify required variables are present
+  assert:
+    that:
+      - dnsmasq_lan_if is defined
+      - dnsmasq_dmz_if is defined
+      - dnsmasq_secure_wlan_if is defined
+  when: "'routers' in group_names"
+
+- block:
+
+    - name: Install NetworkManager configuration file
+      copy:
+        src: NetworkManager.conf
+        dest: /etc/NetworkManager/
+      when: "'workstations' in group_names"
+      register: result
+
+    - name: Reload NetworkManager
+      systemd:
+        name: NetworkManager
+        state: reloaded
+      when: result is changed
+
+    # Dnsmasq will fail to start if its configuration is invalid, e.g.
+    # /etc/dnsmasq-conf.conf is absent. Its --test option will fail for a
+    # similar reason. Thus, we set up resolvconf first.
+    #
+    # Beware, however, that setting up resolvconf implies setting `nameserver
+    # 127.0.0.1` in /etc/resolv.conf. From the time that resolvconf is
+    # configured to the time that dnsmasq is running, name resolution will be
+    # broken.
+    - name: Install dnsmasq
+      pacman:
+        name: dnsmasq
+        state: present
+
+    - name: Install resolvconf configuration file
+      copy:
+        src: resolvconf.conf
+        dest: /etc/
+        validate: 'bash -n %s'
+      register: result
+
+    - name: Regenerate /etc/resolv.conf
+      command: resolvconf -u
+      when: result is changed
+
+    # When dnsmasq receives a SIGHUP signal, e.g. from `systemctl reload`, it
+    # does not re-read its configuration file. See dnsmasq(8). As a result, a
+    # restart is required.
+    - name: Install dnsmasq configuration file
+      template:
+        src: dnsmasq.conf
+        dest: /etc/
+        validate: 'dnsmasq --test --conf-file=%s'
+      notify: Restart dnsmasq
+
+    - name: Start and enable dnsmasq
+      systemd:
+        name: dnsmasq.service
+        state: started
+        enabled: true
+        daemon_reload: true
+
+  become: true

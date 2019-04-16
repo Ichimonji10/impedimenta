@@ -4,7 +4,3 @@
     name: dnsmasq.service
     state: restarted
   become: true
-
-- name: Regenerate /etc/resolv.conf
-  command: resolvconf -u
-  become: true

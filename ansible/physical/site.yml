@@ -8,6 +8,7 @@
 - hosts: all
   roles:
   - crda
+  - dns
   - essential-apps
   - intel-ucode
   - lm-sensors
@@ -71,14 +72,9 @@
 
 - hosts: routers
   roles:
-  - dns-routers
   - hostapd  # NOTE: Execute this play only over a wired connection.
   - netctl-routers
   - nftables-routers
-
-- hosts: '!routers'
-  roles:
-  - dns-generic
 
 - hosts: webservers
   roles:
