@@ -1,0 +1,40 @@
+---
+- block:
+
+  # Make NetworkManager use resolvconf
+  - name: Install NetworkManager configuration file
+    copy:
+      src: NetworkManager.conf
+      dest: /etc/NetworkManager/
+    when: "'workstations' in group_names"
+    notify: Reload NetworkManager
+
+  - name: Install dnsmasq
+    pacman:
+      name: dnsmasq
+      state: present
+
+  # When dnsmasq receives a SIGHUP signal (as from `systemctl reload`), it does
+  # *not* re-read its configuration file. See dnsmasq(8).
+  - name: Install dnsmasq configuration file
+    copy:
+      src: dnsmasq.conf
+      dest: /etc/dnsmasq.conf
+      validate: 'dnsmasq --test --conf-file=%s'
+    notify: Restart dnsmasq
+
+  - name: Start and enable dnsmasq
+    systemd:
+      name: dnsmasq.service
+      state: started
+      enabled: true
+      daemon_reload: true
+
+  - name: Install resolvconf configuration file
+    copy:
+      src: resolvconf.conf
+      dest: /etc/
+      validate: 'bash -n %s'
+    notify: Regenerate /etc/resolv.conf
+
+  become: true

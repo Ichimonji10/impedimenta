@@ -76,6 +76,10 @@
   - netctl-routers
   - nftables-routers
 
+- hosts: '!routers'
+  roles:
+  - dns-generic
+
 - hosts: webservers
   roles:
   - borg-backup-system
