@@ -9,6 +9,23 @@
 
 - block:
 
+    - name: Install stubby
+      pacman:
+        name: stubby
+        state: present
+
+    - name: Install stubby configuration file
+      copy:
+        src: stubby.yml
+        dest: /etc/stubby/
+
+    - name: Start and enable stubby
+      systemd:
+        name: stubby.service
+        state: started
+        enabled: true
+        daemon_reload: true
+
     - name: Install NetworkManager configuration file
       copy:
         src: NetworkManager.conf

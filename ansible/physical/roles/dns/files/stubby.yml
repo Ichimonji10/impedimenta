@@ -1,0 +1,36 @@
+---
+# Stubby configuration file. See stubby(1).
+
+# The stubby daemon supports IPv4 and IPv6. The syntax is ${ip_address}@${port},
+# where port defaults to 53.
+listen_addresses:
+  - 127.0.0.1@53000
+
+# When stubby runs as a special system-level user without a home directory (such
+# as in setups using systemd), it is recommended that an explicit location for
+# storing the trust-anchor files is provided that is writable (and readable) by
+# that special system user.
+appdata_dir: "/var/cache/stubby"
+
+# Shall stubby run as a recursive or stub resolver? For stubby, this *must* be
+# set to GETDNS_RESOLUTION_STUB
+resolution_type: GETDNS_RESOLUTION_STUB
+
+# Shall stubby operate in strict or opportunistic mode? For conceptual details
+# on strict mode and opportunistic mode, see:
+# https://datatracker.ietf.org/doc/rfc8310/ If stubby operates in strict mode,
+# then upstream_recursive_servers must provide authentication information.
+tls_authentication: GETDNS_AUTHENTICATION_REQUIRED
+
+# Which transport protocols shall stubby use? If stubby is operating in strict
+# mode, use GETDNS_TRANSPORT_TLS.
+dns_transport_list:
+  - GETDNS_TRANSPORT_TLS
+
+# Who shall stubby forward queries to? In opportunistic mode, only address_data
+# is needed. In strict mode, tls_auth_name or tls_pubkey_pinset are also needed.
+upstream_recursive_servers:
+  - address_data: 1.0.0.1
+    tls_auth_name: "cloudflare-dns.com"
+  - address_data: 1.1.1.1
+    tls_auth_name: "cloudflare-dns.com"
