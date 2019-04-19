@@ -5,6 +5,7 @@
       - bash
       - bind-tools
       - less
+      - perl-rename
       - sudo
       - tree
   become: true
