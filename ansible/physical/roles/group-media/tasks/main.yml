@@ -26,5 +26,6 @@
       etype: group
       # dirs get rwx, files get rw
       permissions: rwx
+      recursive: true
 
   become: true
