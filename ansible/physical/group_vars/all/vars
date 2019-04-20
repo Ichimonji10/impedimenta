@@ -16,7 +16,6 @@ custom_repos:
 
       # dev-env role
       - bandwidth
-      - python-rst2pdf
       - python36
       - vim-badwolf-git
       - vim-hemisu-git

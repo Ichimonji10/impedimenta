@@ -7,6 +7,7 @@
       name:
         - jdk8-openjdk
         - maven
+        - python-rst2pdf
         - sbt
         - scala
         - spin
@@ -33,7 +34,6 @@
         - python-docutils  # for rst2html
         - python-passlib  # for ansible's htpasswd module
         - python-pylint
-        - python-rst2pdf
         - python-wheel
         - python36
         - shellcheck
