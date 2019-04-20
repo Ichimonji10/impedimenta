@@ -5,10 +5,11 @@
   - name: Uninstall unused packages
     pacman:
       name:
-        - maven
         - jdk8-openjdk
+        - maven
         - sbt
         - scala
+        - spin
       state: absent
 
   - name: Install development tools
@@ -36,7 +37,6 @@
         - python-wheel
         - python36
         - shellcheck
-        - spin
         - sshpass  # optional for ansible
         - tmux
         - twine
