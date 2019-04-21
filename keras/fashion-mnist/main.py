@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # coding=utf-8
-"""A TensorFlow-based NN that classifies the `fashion MNIST`_ dataset.
+"""A TensorFlow-based NN that classifies the `fashion MNIST database`_.
 
 Depends on the following pure-Python packages:
 
@@ -10,7 +10,7 @@ Depends on the following pure-Python packages:
 
 This code follows a `guide`_.
 
-.. _fashion mnist: https://github.com/zalandoresearch/fashion-mnist
+.. _fashion mnist database: https://github.com/zalandoresearch/fashion-mnist
 .. _guide: https://www.tensorflow.org/tutorials/keras/basic_classification
 """
 import argparse
@@ -51,8 +51,8 @@ class Manager:
     """A manager that coordinates a neural neta and related data.
 
     The suggested usage pattern is to call ``predict()`` to generate
-    predictions, then ``chart()`` to visualize them. This class was sloppily
-    slapped together to solve data sharing issues.
+    predictions, then ``chart()`` to visualize them. This class was slapped
+    together, and its API shouldn't be over-thought.
     """
 
     def __init__(self):
@@ -126,12 +126,11 @@ class Manager:
             pyplot.subplot(num_rows, 2 * num_cols, 2 * i + 1)
             self._plot_image(i)
             pyplot.subplot(num_rows, 2 * num_cols, 2 * i + 2)
-            self._plot_value_array(i)
+            self._plot_labels(i)
         pyplot.savefig(handle)
 
     def _plot_image(self, i: int) -> None:
         """Graph an image, with a label below it."""
-        predictions = self.predictions_iter[i]
         test_label = self.test_labels[i]
         test_image = self.test_images[i]
 
@@ -139,38 +138,31 @@ class Manager:
         pyplot.xticks(())
         pyplot.yticks(())
         pyplot.imshow(test_image, cmap=pyplot.cm.binary)
-        prediction = numpy.argmax(predictions)
-        if prediction == test_label:
-            color = 'blue'
-        else:
-            color = 'red'
-        pyplot.xlabel(
-            f'{self.label_names[prediction]} '
-            f'{100 * numpy.max(predictions):2.0f}% '
-            f'({self.label_names[test_label]})',
-            color=color
-        )
+        pyplot.xlabel(f'{self.label_names[test_label]}')
 
-
-    def _plot_value_array(self, i: int) -> None:
+    def _plot_labels(self, i: int) -> None:
         """Paint a bar graph showing confidence in each predicted label."""
         predictions = self.predictions_iter[i]
-        prediction = numpy.argmax(predictions)
+        prediction_idx = numpy.argmax(predictions)
+        prediction = predictions[prediction_idx]
         test_label = self.test_labels[i]
 
         pyplot.grid(False)
         pyplot.xticks(())
         pyplot.yticks(())
+        pyplot.xlabel(
+            f'{self.label_names[prediction_idx]}, {prediction * 100:2.0f}%'
+        )
+        pyplot.ylim((0, 1))
+
+        # If set_color() is called on a single bar multiple times, the last
+        # call will win.
         this_plot = pyplot.bar(
             range(len(predictions)),
             predictions,
             color='#777777',
         )
-        pyplot.ylim((0, 1))
-
-        # If the NN's predicted label and the true label are for the same bar,
-        # then the second set_color() call with win.
-        this_plot[prediction].set_color('red')
+        this_plot[prediction_idx].set_color('red')
         this_plot[test_label].set_color('blue')
 
 
