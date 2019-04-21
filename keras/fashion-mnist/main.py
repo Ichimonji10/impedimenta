@@ -16,8 +16,8 @@ This code follows a `guide`_.
 import argparse
 from typing import Optional, Sequence
 
-from tensorflow import keras, nn
-import numpy as np
+import numpy
+from keras import activations, datasets, layers, models
 
 # pylint:disable=wrong-import-position
 import matplotlib
@@ -57,7 +57,7 @@ class Manager:
 
     def __init__(self):
         """Load data into memory, and munge it."""
-        train, test = keras.datasets.fashion_mnist.load_data()
+        train, test = datasets.fashion_mnist.load_data()
         self.train_images = train[0]
         self.train_labels = train[1]
         self.test_images = test[0]
@@ -93,10 +93,10 @@ class Manager:
 
         Throw away the model, and save the predictions.
         """
-        model = keras.Sequential((
-            keras.layers.Flatten(input_shape=(28, 28)),
-            keras.layers.Dense(128, activation=nn.relu),
-            keras.layers.Dense(10, activation=nn.softmax),
+        model = models.Sequential((
+            layers.Flatten(input_shape=(28, 28)),
+            layers.Dense(128, activation=activations.relu),
+            layers.Dense(10, activation=activations.softmax),
         ))
         model.compile(
             optimizer='adam',
@@ -139,14 +139,14 @@ class Manager:
         pyplot.xticks(())
         pyplot.yticks(())
         pyplot.imshow(test_image, cmap=pyplot.cm.binary)
-        prediction = np.argmax(predictions)
+        prediction = numpy.argmax(predictions)
         if prediction == test_label:
             color = 'blue'
         else:
             color = 'red'
         pyplot.xlabel(
             f'{self.label_names[prediction]} '
-            f'{100 * np.max(predictions):2.0f}% '
+            f'{100 * numpy.max(predictions):2.0f}% '
             f'({self.label_names[test_label]})',
             color=color
         )
@@ -155,7 +155,7 @@ class Manager:
     def _plot_value_array(self, i: int) -> None:
         """Paint a bar graph showing confidence in each predicted label."""
         predictions = self.predictions_iter[i]
-        prediction = np.argmax(predictions)
+        prediction = numpy.argmax(predictions)
         test_label = self.test_labels[i]
 
         pyplot.grid(False)
