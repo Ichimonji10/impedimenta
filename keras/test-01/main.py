@@ -8,17 +8,15 @@ Depends on the following pure-Python packages:
 *   tensorflow
 """
 import numpy as np
-from keras import layers, losses, models, optimizers, utils
+from keras import activations, layers, losses, models, optimizers, utils
 
 
 def main():
     """Execute business logic."""
     # Create model.
     model = models.Sequential((
-        layers.Dense(32, input_shape=(128,)),
-        layers.Activation('relu'),
-        layers.Dense(10),
-        layers.Activation('softmax'),
+        layers.Dense(32, input_shape=(128,), activation=activations.relu),
+        layers.Dense(10, activation=activations.softmax),
     ))
     model.compile(
         optimizer=optimizers.SGD(),
@@ -34,7 +32,7 @@ def main():
     one_hot_labels = utils.to_categorical(labels, num_classes=10)
 
     # Train the model, iterating on the data in batches of 32 samples.
-    model.fit(data, one_hot_labels, epochs=1000, batch_size=32)
+    model.fit(data, one_hot_labels, epochs=100, batch_size=32)
 
 
 if __name__ == '__main__':
