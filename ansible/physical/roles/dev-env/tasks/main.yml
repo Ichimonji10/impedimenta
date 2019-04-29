@@ -36,6 +36,8 @@
         - python-pylint
         - python-wheel
         - python36
+        - rust
+        - rust-docs
         - shellcheck
         - sshpass  # optional for ansible
         - tmux
