@@ -1,0 +1,11 @@
+[package]
+name = "not_gen"
+version = "0.1.0"
+authors = ["Jeremy Audet <jerebear@protonmail.com>"]
+edition = "2018"
+
+[dependencies]
+clap = "2"
+dbus = "0"
+serde_json = "1"
+textwrap = {version="0", features = ["term_size"]}
