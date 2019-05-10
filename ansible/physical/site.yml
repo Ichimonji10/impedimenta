@@ -25,10 +25,6 @@
   - nftables-generic
   - syncthing
 
-- hosts: dev-hosts:&servers:&vm-hosts
-  roles:
-  - coworkers
-
 - hosts: uefi-hosts
   roles:
   - uefi

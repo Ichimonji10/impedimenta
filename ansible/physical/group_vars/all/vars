@@ -1,12 +1,4 @@
 ---
-coworkers:
-  - asmacdo
-  - bizhang
-  - ipanova
-  - jwilkerson
-  - kersom
-  - ragbalak
-
 custom_repos:
   - path_prefix: /srv/packages.ichimonji10.name/arch-linux
     name: ichi-public
