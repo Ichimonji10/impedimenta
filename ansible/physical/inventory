@@ -8,7 +8,6 @@ tupelo.ichimonji10.name
 # a GUI.
 [dev-hosts]
 beech.ichimonji10.name
-pine.ichimonji10.name
 tupelo.ichimonji10.name
 
 # These systems have BTRFS filesystems, and therefore require special periodic
