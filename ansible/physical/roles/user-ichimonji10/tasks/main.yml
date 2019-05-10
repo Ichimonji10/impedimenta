@@ -45,10 +45,10 @@
   set_fact:
     user_ichimonji10_home: "{{ getent_passwd['ichimonji10'][4] }}"
 
-- include_tasks: all.yml
-- include_tasks: vm-hosts.yml
-  when: "'vm-hosts' in group_names"
-- include_tasks: dev-hosts.yml
-  when: "'dev-hosts' in group_names"
-- include_tasks: servers.yml
-  when: "'servers' in group_names"
+# Run the "bash" role first so that ~/.local/bin/ can be created.
+- include_tasks: bash.yml
+- include_tasks: git.yml
+- include_tasks: libvirt.yml
+- include_tasks: ssh.yml
+- include_tasks: twine.yml
+- include_tasks: vim.yml

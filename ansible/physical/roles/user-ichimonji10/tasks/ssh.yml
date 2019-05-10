@@ -1,0 +1,45 @@
+---
+- block:
+
+  - name: Create ~/.ssh/
+    file:
+      path: '{{ user_ichimonji10_home }}/.ssh'
+      state: directory
+      mode: 0700
+
+  - name: Install public SSH key on servers
+    copy:
+      dest: '{{ user_ichimonji10_home }}/.ssh/authorized_keys'
+      content: '{{ ssh_keypairs[inventory_hostname]["ichimonji10"]["public"] }}'
+      mode: 0600
+    when: "'servers' in group_names"
+
+  - name: Uninstall public SSH key from non-servers
+    file:
+      dest: '{{ user_ichimonji10_home }}/.ssh/authorized_keys'
+      state: absent
+    when: "'servers' not in group_names"
+
+  - name: Install private SSH keys on workstations
+    copy:
+      dest: '{{ user_ichimonji10_home }}/.ssh/{{ item }}'
+      content: '{{ ssh_keypairs[item]["ichimonji10"]["private"] }}'
+      mode: 0600
+    loop:
+      - amelanchier.ichimonji10.name
+      - aronia.ichimonji10.name
+      - pine.ichimonji10.name
+    when: "'workstations' in group_names"
+
+  - name: Uninstall private SSH keys from non-workstations
+    file:
+      dest: '{{ user_ichimonji10_home }}/.ssh/{{ item }}'
+      state: absent
+    loop:
+      - amelanchier.ichimonji10.name
+      - aronia.ichimonji10.name
+      - pine.ichimonji10.name
+    when: "'workstations' not in group_names"
+
+  become: true
+  become_user: ichimonji10

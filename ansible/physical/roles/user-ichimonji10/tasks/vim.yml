@@ -1,18 +1,6 @@
 ---
 - block:
 
-  - name: Create directories named by ~/.bashrc
-    file:
-      path: "{{ user_ichimonji10_home }}/.local/bin"
-      state: directory
-    become_user: ichimonji10
-
-  - name: Install ~/.bashrc
-    copy:
-      src: bashrc
-      dest: "{{ user_ichimonji10_home }}/.bashrc"
-    become_user: ichimonji10
-
   - name: Create directories named by ~/.vimrc
     file:
       path: "{{ item }}"
@@ -21,12 +9,11 @@
       - "{{ user_ichimonji10_home }}/.cache/custom-ctags"
       - "{{ user_ichimonji10_home }}/.vim/undo"
       - "{{ user_ichimonji10_home }}/code"
-    become_user: ichimonji10
 
   - name: Install ~/.vimrc
     template:
       src: vimrc
       dest: "{{ user_ichimonji10_home }}/.vimrc"
-    become_user: ichimonji10
 
   become: true
+  become_user: ichimonji10

@@ -1,0 +1,15 @@
+---
+- block:
+
+  - name: Create directories named by ~/.bashrc
+    file:
+      path: "{{ user_ichimonji10_home }}/.local/bin"
+      state: directory
+
+  - name: Install ~/.bashrc
+    copy:
+      src: bashrc
+      dest: "{{ user_ichimonji10_home }}/.bashrc"
+
+  become: true
+  become_user: ichimonji10

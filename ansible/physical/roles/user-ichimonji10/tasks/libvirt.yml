@@ -1,0 +1,16 @@
+---
+- block:
+
+  - name: Create "{{ user_ichimonji10_home }}/.config/libvirt"
+    file:
+      state: directory
+      path: "{{ user_ichimonji10_home }}/.config/libvirt"
+
+  - name: Install libvirt configuration file
+    copy:
+      src: libvirt.conf
+      dest: "{{ user_ichimonji10_home }}/.config/libvirt/libvirt.conf"
+
+  become: true
+  become_user: ichimonji10
+  when: "'vm-hosts' in group_names"
