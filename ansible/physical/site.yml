@@ -19,10 +19,13 @@
   - time
   - user-ichimonji10
 
+- hosts: all:!routers
+  roles:
+  - nftables-generic
+
 - hosts: dev-hosts
   roles:
   - dev-env
-  - nftables-generic
   - syncthing
 
 - hosts: uefi-hosts
