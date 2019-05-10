@@ -37,6 +37,7 @@ tupelo.ichimonji10.name
 # These systems are headless, have high uptime, and have remote management
 # capabilities.
 [servers]
+aronia.ichimonji10.name
 
 [servers:children]
 bittorrent-hosts

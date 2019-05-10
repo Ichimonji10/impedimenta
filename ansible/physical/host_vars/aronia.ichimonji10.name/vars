@@ -1,0 +1,4 @@
+---
+netctl_generic_external_if: enp1s0
+
+# vim:ft=yaml:
