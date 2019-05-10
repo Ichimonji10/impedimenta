@@ -56,4 +56,6 @@ custom_repos:
 
 pacman_conf_repo_passwords: '{{ vault_pacman_conf_repo_passwords }}'
 
+ssh_keypairs: '{{ vault_ssh_keypairs }}'
+
 # vim:ft=yaml:

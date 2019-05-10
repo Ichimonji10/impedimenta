@@ -50,3 +50,5 @@
   when: "'vm-hosts' in group_names"
 - include_tasks: dev-hosts.yml
   when: "'dev-hosts' in group_names"
+- include_tasks: servers.yml
+  when: "'servers' in group_names"
