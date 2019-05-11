@@ -20,7 +20,7 @@
       state: absent
     when: "'servers' not in group_names"
 
-  - name: Install private SSH keys on workstations
+  - name: Install private SSH keys on routers and workstations
     copy:
       dest: '{{ user_ichimonji10_home }}/.ssh/{{ item }}'
       content: '{{ ssh_keypairs[item]["ichimonji10"]["private"] }}'
@@ -29,9 +29,9 @@
       - amelanchier.ichimonji10.name
       - aronia.ichimonji10.name
       - pine.ichimonji10.name
-    when: "'workstations' in group_names"
+    when: "'routers' in group_names or 'workstations' in group_names"
 
-  - name: Uninstall private SSH keys from non-workstations
+  - name: Uninstall private SSH keys from non-(routers & workstations)
     file:
       dest: '{{ user_ichimonji10_home }}/.ssh/{{ item }}'
       state: absent
@@ -39,7 +39,9 @@
       - amelanchier.ichimonji10.name
       - aronia.ichimonji10.name
       - pine.ichimonji10.name
-    when: "'workstations' not in group_names"
+    when:
+      - "'routers' not in group_names"
+      - "'workstations' not in group_names"
 
   become: true
   become_user: ichimonji10
