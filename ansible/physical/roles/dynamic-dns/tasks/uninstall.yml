@@ -1,0 +1,18 @@
+---
+- block:
+
+  - name: Uninstall script to update dynamic DNS
+    file:
+      path: /usr/local/bin/dynamic-dns.sh
+      state: absent
+
+  - name: Uninstall units for updating dynamic DNS
+    file:
+      path: /etc/systemd/system/{{ item }}
+      state: absent
+    loop:
+      - dynamic-dns.service
+      - dynamic-dns.timer
+    notify: Reload systemd
+
+  become: true

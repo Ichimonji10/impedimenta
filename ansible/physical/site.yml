@@ -19,10 +19,6 @@
   - time
   - user-ichimonji10
 
-- hosts: all:!routers
-  roles:
-  - nftables-generic
-
 - hosts: dev-hosts
   roles:
   - dev-env
@@ -50,7 +46,6 @@
 
 - hosts: servers
   roles:
-  - dynamic-dns
   - sshd
 
 - hosts: servers:!routers
@@ -71,9 +66,18 @@
 
 - hosts: routers
   roles:
+  - dynamic-dns
   - hostapd  # NOTE: Execute this play only over a wired connection.
   - netctl-routers
   - nftables-routers
+
+# Placing the vars below into group_vars/all:!routers/vars had no effect.
+- hosts: all:!routers
+  roles:
+  - dynamic-dns
+  - nftables-generic
+  vars:
+    dynamic_dns_install: false
 
 - hosts: webservers
   roles:

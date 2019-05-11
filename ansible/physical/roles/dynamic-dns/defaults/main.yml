@@ -1,2 +1,3 @@
 ---
+dynamic_dns_install: true
 dynamic_dns_urls: []

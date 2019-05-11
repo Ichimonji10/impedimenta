@@ -1,0 +1,31 @@
+---
+- block:
+
+  - name: Install curl
+    pacman:
+      name: curl
+      state: present
+
+  - name: Install script to update dynamic DNS
+    template:
+      src: dynamic-dns.sh
+      dest: /usr/local/bin/dynamic-dns.sh
+      mode: 0700
+    when: dynamic_dns_urls is defined
+
+  - name: Install units for updating dynamic DNS
+    copy:
+      src: '{{ item }}'
+      dest: /etc/systemd/system/{{ item }}
+    loop:
+      - dynamic-dns.service
+      - dynamic-dns.timer
+
+  - name: Start and enable timer for updating dynamic DNS
+    systemd:
+      name: dynamic-dns.timer
+      state: started
+      enabled: true
+      daemon_reload: true
+
+  become: true
