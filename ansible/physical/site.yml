@@ -2,85 +2,85 @@
 # Make custom packages available to subsequent roles.
 - hosts: webservers
   roles:
-  - custom-repo
-  - nginx  # Make sure to install SSL certificates.
+    - custom-repo
+    - nginx  # Make sure to install SSL certificates.
 
 - hosts: all
   roles:
-  - crda
-  - dns
-  - essential-apps
-  - intel-ucode
-  - lm-sensors
-  - locale
-  - pacman-conf
-  - pkgfile
-  - smartd
-  - time
-  - user-ichimonji10
+    - crda
+    - dns
+    - essential-apps
+    - intel-ucode
+    - lm-sensors
+    - locale
+    - pacman-conf
+    - pkgfile
+    - smartd
+    - time
+    - user-ichimonji10
 
 - hosts: dev-hosts
   roles:
-  - dev-env
-  - syncthing
+    - dev-env
+    - syncthing
 
 - hosts: uefi-hosts
   roles:
-  - uefi
+    - uefi
 
 - hosts: workstations
   roles:
-  - borg-backup-users
-  - syncthing
-  - workstation
+    - borg-backup-users
+    - syncthing
+    - workstation
 
 - hosts: vm-hosts
   roles:
-  - libvirtd
+    - libvirtd
 
 - hosts: btrfs-hosts
   roles:
-  - btrfs-balance
-  - btrfs-scrub
-  - btrfs-subvolume
+    - btrfs-balance
+    - btrfs-scrub
+    - btrfs-subvolume
 
 - hosts: servers
   roles:
-  - sshd
+    - sshd
 
 - hosts: servers:!routers
   roles:
-  - netctl-generic
+    - netctl-generic
 
 - hosts: apc-hosts
   roles:
-  - apcupsd
+    - apcupsd
 
 - hosts: bittorrent-hosts
   roles:
-  - transmission
+    - transmission
 
 - hosts: mnemosyne-hosts
   roles:
-  - mnemosyne
+    - mnemosyne
 
 - hosts: routers
   roles:
-  - dynamic-dns
-  - hostapd  # NOTE: Execute this play only over a wired connection.
-  - netctl-routers
-  - nftables-routers
+    - dynamic-dns
+    - hostapd  # NOTE: Execute this play only over a wired connection.
+    - netctl-routers
+    - nftables-routers
 
 # Placing the vars below into group_vars/all:!routers/vars had no effect.
 - hosts: all:!routers
   roles:
-  - dynamic-dns
-  - nftables-generic
+    - dynamic-dns
+    - nftables-generic
   vars:
     dynamic_dns_install: false
 
 - hosts: webservers
   roles:
-  - borg-backup-system
-  - jellyfin
-  - subsonic
+    - borg-backup-system
+    - jellyfin
+    - subsonic
