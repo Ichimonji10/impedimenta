@@ -1,0 +1,8 @@
+[package]
+name = "str_own"
+version = "0.1.0"
+authors = ["Jeremy Audet <jerebear@protonmail.com>"]
+edition = "2018"
+
+[dependencies]
+rand = "0.6"
