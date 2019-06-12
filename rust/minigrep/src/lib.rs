@@ -9,20 +9,27 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new(args: &[String]) -> Result<Config, &'static str> {
-        let nargs = 3;
-        if args.len() < nargs {
-            return Err("not enough arguments");
-        } else if args.len() > nargs {
-            return Err("too many arguments");
-        }
-
+    pub fn new<T>(mut args: T) -> Result<Config, &'static str>
+    where
+        T: Iterator<Item = String>,
+    {
         // NOTE: CASE_INSENSITIVE is confusing, as users need to think about
         // double negatives. CASE_SENSITIVE would be more straightforward.
-        let query = args[1].to_string();
-        let filename = args[2].to_string();
+        args.next();
+        let query: String = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a query string."),
+        };
+        let filename: String = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a file name."),
+        };
         let case_sensitive = env::var("CASE_INSENSITIVE").is_err();
-        Ok(Config { query, filename, case_sensitive })
+        Ok(Config {
+            query,
+            filename,
+            case_sensitive,
+        })
     }
 }
 
@@ -66,8 +73,8 @@ mod tests {
 
     #[test]
     fn test_config_new_0_args() {
-        let args: Vec<String> = vec![];
-        match Config::new(&args) {
+        let args: Vec<&str> = vec![];
+        match Config::new(args.iter().map(|arg| arg.to_string())) {
             Ok(_) => panic!(),
             Err(_) => (),
         }
@@ -75,8 +82,8 @@ mod tests {
 
     #[test]
     fn test_config_new_1_args() {
-        let args: Vec<String> = vec!["path/to/bin".to_string()];
-        match Config::new(&args) {
+        let args: Vec<&str> = vec!["path/to/bin"];
+        match Config::new(args.iter().map(|arg| arg.to_string())) {
             Ok(_) => panic!(),
             Err(_) => (),
         }
@@ -84,8 +91,8 @@ mod tests {
 
     #[test]
     fn test_config_new_2_args() {
-        let args: Vec<String> = vec!["path/to/bin".to_string(), "needle".to_string()];
-        match Config::new(&args) {
+        let args = vec!["path/to/bin", "needle"];
+        match Config::new(args.iter().map(|arg| arg.to_string())) {
             Ok(_) => panic!(),
             Err(_) => (),
         }
@@ -93,28 +100,18 @@ mod tests {
 
     #[test]
     fn test_config_new_3_args() {
-        let args: Vec<String> = vec![
-            "path/to/bin".to_string(),
-            "needle".to_string(),
-            "haystack".to_string(),
-        ];
-        let config = Config::new(&args).unwrap();
+        let args = vec!["path/to/bin", "needle", "haystack"];
+        let config = Config::new(args.iter().map(|arg| arg.to_string())).unwrap();
         assert_eq!(config.query, args[1].to_string());
         assert_eq!(config.filename, args[2].to_string());
     }
 
     #[test]
     fn test_config_new_4_args() {
-        let args: Vec<String> = vec![
-            "path/to/bin".to_string(),
-            "needle".to_string(),
-            "haystack".to_string(),
-            "extra".to_string(),
-        ];
-        match Config::new(&args) {
-            Ok(_) => panic!(),
-            Err(_) => (),
-        }
+        let args = vec!["path/to/bin", "needle", "haystack", "extra"];
+        let config = Config::new(args.iter().map(|arg| arg.to_string())).unwrap();
+        assert_eq!(config.query, args[1].to_string());
+        assert_eq!(config.filename, args[2].to_string());
     }
 
     #[test]
