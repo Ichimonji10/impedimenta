@@ -1,3 +1,19 @@
+//! Inspect and interact with the desktop notification service.
+//!
+//! This crate provides tools for interacting with the desktop notification
+//! service via D-Bus. D-Bus is a message bus targeted primarily at single-host
+//! IPC. It's cross-platform, but is deployed almost exclusively on Linux
+//! distributions. The desktop notification service is the service which, among
+//! other things, generates pop-up notifications.
+//!
+//! This crate should not be taken seriously. It's a [breakable
+//! toy](https://www.oreilly.com/library/view/apprenticeship-patterns/9780596806842/ch05s03.html).
+//!
+//! For more information, see:
+//!
+//! *   [D-Bus](https://www.freedesktop.org/wiki/Software/dbus/)
+//! *   [Desktop Notifications Specification](https://developer.gnome.org/notification-spec/)
+
 use std::cmp;
 use std::collections::HashMap;
 
@@ -8,12 +24,22 @@ extern crate textwrap;
 use clap::{App, AppSettings, Arg, ArgMatches, SubCommand};
 use dbus::arg::{RefArg, Variant};
 
+/// On narrow terminals, text shall be wrapped to the width of the terminal. On
+/// wide terminals, text shall be wrapped at an arbitrary bound. This latter
+/// requirement aids readability, as failing to wrap code on especially wide
+/// terminals harms legibility.
 static MAX_WIDTH: usize = 100;
-// On narrow terminals, text shall be wrapped to the width of the terminal. On
-// wide terminals, text shall be wrapped at an arbitrary bound. This latter
-// requirement aids readability, as failing to wrap code on especially wide
-// terminals harms legibility.
 
+/// Used by [notify](fn.notify.html) when generating a notification.
+///
+/// Here's a very dumb doctest:
+///
+/// ```
+/// let _not = not_gen::Notification {
+///     summary: "Message from Alice".to_owned(),
+///     body: "Knock knock!".to_owned(),
+/// };
+/// ```
 #[derive(Debug)]
 pub struct Notification {
     pub summary: String,
@@ -145,6 +171,14 @@ fn list_caps_as_json(capabilities: &Vec<String>) {
     println!("{}", serialized);
 }
 
+/// Generate a desktop notification (i.e. a pop-up).
+///
+/// Synchronous, with a five second timeout when sending a message. Will panic
+/// if:
+///
+/// *   Connecting to the session bus fails.
+/// *   Compiling a message fails.
+/// *   Sending the message fails.
 pub fn notify(notification: &Notification) {
     let conn = dbus::Connection::get_private(dbus::BusType::Session)
         .expect("Failed to establish connection to session bus.");
