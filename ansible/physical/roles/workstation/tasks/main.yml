@@ -66,6 +66,7 @@
         - ms-sys
         - networkmanager
         - networkmanager-openvpn
+        - noto-cjk
         - noto-fonts
         - noto-fonts-emoji
         - ntfs-3g
