@@ -27,6 +27,7 @@
         - git
         - gobject-introspection
         - graphviz
+        - heaptrack
         - ipv6calc
         - mypy
         - namcap
