@@ -87,6 +87,7 @@ set shiftround
 filetype on
 autocmd filetype gitcommit setlocal spell textwidth=72
 autocmd filetype python setlocal textwidth=79
+autocmd filetype rust setlocal textwidth=100
 autocmd filetype scala setlocal tabstop=2 shiftwidth=2
 autocmd filetype yaml setlocal tabstop=2 shiftwidth=2
 au BufRead,BufNewFile *.g4 set filetype=antlr4
