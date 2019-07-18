@@ -1,5 +1,6 @@
 # coding=utf-8
 
+.PHONY: help
 help:
 	@echo "Please use \`make <target>' where <target> is one of:"
 	@echo "  help               to show this message"
@@ -10,6 +11,7 @@ help:
 	@echo "  lint-syntax-check  to run ansible-playbook --syntax-check"
 	@echo "  lint-yamllint      to run yamllint"
 
+.PHONY: lint
 lint: lint-syntax-check lint-ansible-lint lint-pylint lint-shellcheck lint-yamllint
 
 # Execute `ansible-lint -L` to view all codes.
@@ -27,19 +29,22 @@ lint: lint-syntax-check lint-ansible-lint lint-pylint lint-shellcheck lint-yamll
 #
 # 701: meta/main.yml should contain relevant info
 #     These modules aren't being distributed on Ansible Galaxy.
+.PHONY: lint-ansible-lint
 lint-ansible-lint:
 	ansible-lint -x 405,501,701 site.yml
 
+.PHONY: lint-pylint
 lint-pylint:
 	find . -type f -name '*.py' -print0 | xargs -0 pylint
 
+.PHONY: lint-shellcheck
 lint-shellcheck:
 	find . -type d -name templates -prune -o -type f -name '*.sh' -print0 | xargs -0 shellcheck
 
+.PHONY: lint-syntax-check
 lint-syntax-check:
 	ansible-playbook site.yml --syntax-check
 
+.PHONY: lint-yamllint
 lint-yamllint:
 	yamllint --strict .
-
-.PHONY: help lint lint-ansible-lint lint-pylint lint-shellcheck lint-syntax-check lint-yamllint
