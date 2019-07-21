@@ -13,4 +13,4 @@
 
   become: true
   become_user: ichimonji10
-  when: "'vm-hosts' in group_names"
+  when: "'vm_hosts' in group_names"

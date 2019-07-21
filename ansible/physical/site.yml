@@ -19,12 +19,12 @@
     - time
     - user-ichimonji10
 
-- hosts: dev-hosts
+- hosts: dev_hosts
   roles:
     - dev-env
     - syncthing
 
-- hosts: uefi-hosts
+- hosts: uefi_hosts
   roles:
     - uefi
 
@@ -34,11 +34,11 @@
     - syncthing
     - workstation
 
-- hosts: vm-hosts
+- hosts: vm_hosts
   roles:
     - libvirtd
 
-- hosts: btrfs-hosts
+- hosts: btrfs_hosts
   roles:
     - btrfs-balance
     - btrfs-scrub
@@ -52,15 +52,15 @@
   roles:
     - netctl-generic
 
-- hosts: apc-hosts
+- hosts: apc_hosts
   roles:
     - apcupsd
 
-- hosts: bittorrent-hosts
+- hosts: bittorrent_hosts
   roles:
     - transmission
 
-- hosts: mnemosyne-hosts
+- hosts: mnemosyne_hosts
   roles:
     - mnemosyne
 

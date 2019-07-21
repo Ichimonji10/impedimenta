@@ -6,30 +6,30 @@ tupelo.ichimonji10.name
 
 # These systems are used for software development. They might or might not have
 # a GUI.
-[dev-hosts]
+[dev_hosts]
 beech.ichimonji10.name
 tupelo.ichimonji10.name
 
 # These systems have BTRFS filesystems, and therefore require special periodic
 # checks like filesystem scrubs.
-[btrfs-hosts]
+[btrfs_hosts]
 beech.ichimonji10.name
 pine.ichimonji10.name
 
 # Each of these systems has a UEFI BIOS.
-[uefi-hosts]
+[uefi_hosts]
 beech.ichimonji10.name
 pine.ichimonji10.name
 tupelo.ichimonji10.name
 
 # Each of these systems has an APC brand UPS attached.
-[apc-hosts]
+[apc_hosts]
 amelanchier.ichimonji10.name
 beech.ichimonji10.name
 pine.ichimonji10.name
 
 # These systems host qemu-kvm VMs.
-[vm-hosts]
+[vm_hosts]
 beech.ichimonji10.name
 pine.ichimonji10.name
 tupelo.ichimonji10.name
@@ -40,18 +40,18 @@ tupelo.ichimonji10.name
 aronia.ichimonji10.name
 
 [servers:children]
-bittorrent-hosts
-mnemosyne-hosts
+bittorrent_hosts
+mnemosyne_hosts
 routers
 webservers
 
 # This group should only contain one host. This is because bittorrent requires
 # an open port to function correctly, and only one port is available from the
 # VPN provider.
-[bittorrent-hosts]
+[bittorrent_hosts]
 pine.ichimonji10.name
 
-[mnemosyne-hosts]
+[mnemosyne_hosts]
 pine.ichimonji10.name
 
 [routers]

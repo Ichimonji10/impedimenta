@@ -17,7 +17,7 @@ Example Playbook
 The firewall that's installed differs depending on whether the host is in the
 following groups:
 
-* bittorrent-hosts
-* mnemosyne-hosts
-* vm-hosts
+* bittorrent_hosts
+* mnemosyne_hosts
+* vm_hosts
 * webservers

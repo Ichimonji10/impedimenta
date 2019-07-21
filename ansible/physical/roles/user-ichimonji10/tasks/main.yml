@@ -13,7 +13,7 @@
 - name: Append "libvirt" to the list of groups
   set_fact:
     user_ichimonji10_groups: '{{ user_ichimonji10_groups + ["libvirt"] }}'
-  when: "'vm-hosts' in group_names"
+  when: "'vm_hosts' in group_names"
 
 - name: Append "uucp" and "wireshark" to the list of groups
   set_fact:
