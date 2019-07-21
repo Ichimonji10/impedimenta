@@ -74,7 +74,12 @@
     loop:
       - transmission.ichimonji10.name
       - www.backtobasicsreading.com
-      - www.ichimonji10.name
+      - www.jerebear.name
+
+  - name: Delete outdated files for static websites
+    file:
+      path: /usr/share/nginx/www.ichimonji10.name
+      state: absent
 
   - name: Start and enable nginx
     systemd:
