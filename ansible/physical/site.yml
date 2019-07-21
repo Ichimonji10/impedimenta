@@ -74,13 +74,14 @@
 # Placing the vars below into group_vars/all:!routers/vars had no effect.
 - hosts: all:!routers
   roles:
-    - dynamic-dns
     - nftables-generic
-  vars:
-    dynamic_dns_install: false
 
 - hosts: webservers
   roles:
     - borg-backup-system
     - jellyfin
     - subsonic
+
+- hosts: pine.ichimonji10.name
+  roles:
+    - dynamic-dns

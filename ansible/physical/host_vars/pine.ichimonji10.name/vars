@@ -8,6 +8,8 @@ btrfs_subvolumes:
     snapshot: false
     delete: false
 
+dynamic_dns_urls: '{{ vault_dynamic_dns_urls }}'
+
 netctl_generic_external_if: enp2s0
 
 syncthing_usernames:
