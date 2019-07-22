@@ -9,7 +9,7 @@ Make the following websites available:
 * https://syncthing.ichimonji10.name
 * https://transmission.ichimonji10.name
 * https://www.backtobasicsreading.com
-* https://www.ichimonji10.name
+* https://www.jerebear.name
 
 Variables:
 
