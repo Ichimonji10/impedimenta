@@ -79,7 +79,6 @@
 - hosts: webservers
   roles:
     - borg-backup-system
-    - jellyfin
     - subsonic
 
 - hosts: pine.ichimonji10.name

@@ -1,4 +1,0 @@
----
-# The group-media role creates the media group.
-dependencies:
-  - role: group-media
