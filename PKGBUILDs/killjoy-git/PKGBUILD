@@ -1,0 +1,39 @@
+# Maintainer: Jeremy Audet <jerebear@protonmail.com>
+
+pkgname='killjoy-git'
+pkgver=r57.0dac5f8 # see pkgver()
+pkgrel=1
+pkgdesc='Monitor systemd units'
+arch=('x86_64')
+url="https://github.com/Ichimonji10/${pkgname%-git}"
+license=('GPL3')
+depends=('dbus')
+makedepends=('git' 'rust')
+provides=("${pkgname%-git}")
+conflicts=("${pkgname%-git}")
+source=("git+https://github.com/Ichimonji10/${pkgname%-git}.git")
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "${pkgname%-git}"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+  cd "${pkgname%-git}"
+  cargo build --locked --release
+}
+
+check() {
+  cd "${pkgname%-git}"
+  cargo test --locked --release
+}
+
+package() {
+  install -Dm755 "${pkgname%-git}/target/release/${pkgname%-git}" \
+    -t "${pkgdir}/usr/bin"
+  install -Dm644 "${pkgname%-git}/package/systemd-user/${pkgname%-git}.service" \
+    -t "${pkgdir}/usr/lib/systemd/user"
+}
+
+# vim:set ts=2 sw=2 et:
