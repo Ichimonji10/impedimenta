@@ -30,10 +30,13 @@ check() {
 }
 
 package() {
-  install -Dm755 "${pkgname%-git}/target/release/${pkgname%-git}" \
-    -t "${pkgdir}/usr/bin"
-  install -Dm644 "${pkgname%-git}/package/session/${pkgname%-git}.service" \
-    -t "${pkgdir}/usr/lib/systemd/user"
+  install -Dm755 \
+    -t "${pkgdir}/usr/bin" \
+    "${pkgname%-git}/target/release/${pkgname%-git}"
+
+  install -Dm644 \
+    -t "${pkgdir}/usr/lib/systemd/user" \
+    "${pkgname%-git}/package/session/${pkgname%-git}.service"
 }
 
 # vim:set ts=2 sw=2 et:
