@@ -32,7 +32,7 @@ check() {
 package() {
   install -Dm755 "${pkgname%-git}/target/release/${pkgname%-git}" \
     -t "${pkgdir}/usr/bin"
-  install -Dm644 "${pkgname%-git}/package/systemd-user/${pkgname%-git}.service" \
+  install -Dm644 "${pkgname%-git}/package/session/${pkgname%-git}.service" \
     -t "${pkgdir}/usr/lib/systemd/user"
 }
 
