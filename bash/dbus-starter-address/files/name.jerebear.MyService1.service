@@ -1,0 +1,9 @@
+[D-BUS Service]
+Name=name.jerebear.MyService1
+Exec=/usr/bin/env
+
+# Comment or uncomment to let the message bus or systemd start the process,
+# respectively.
+SystemdService=my-service.service
+
+# vim:set ft=systemd:
