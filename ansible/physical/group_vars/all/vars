@@ -40,7 +40,6 @@ custom_repos:
       - mnemosyne
       - ms-sys
       - signal-desktop-bin
-      - zoom
 
   - path_prefix: /srv/packages.ichimonji10.name/arch-linux
     name: ichi-private

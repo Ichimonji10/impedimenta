@@ -45,6 +45,7 @@
         - unrar
         - xfce4
         - xfce4-goodies
+        - zoom
       state: absent
 
   # NOTE: We assume base and base-devel are already present, and were enabled at
@@ -84,7 +85,6 @@
         - wireshark-qt
         - xclip
         - zip
-        - zoom
 
         # The goal is to *not* pull in the entire GNOME desktop. Rather than
         # installing gnome-extra, install gnome and whatever extra apps are
