@@ -121,3 +121,11 @@
     enabled: true
     daemon_reload: true
   become: true
+
+- name: Enable and start bluetooth
+  systemd:
+    name: bluetooth.service
+    state: started
+    enabled: true
+    daemon_reload: true
+  become: true
