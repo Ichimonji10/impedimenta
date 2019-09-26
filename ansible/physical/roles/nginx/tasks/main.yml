@@ -12,6 +12,17 @@
         - media
       create_home: false
 
+  - name: Install htpasswd file for syncthing.ichimonji10.name
+    htpasswd:
+      name: admin
+      password: '{{ transmission_password }}'
+      path: >-
+        /etc/nginx/{{ 'syncthing.ichimonji10.name' | systemd_escape }}.htpasswd
+      owner: root
+      group: http
+      mode: 0640
+    when: transmission_password is defined
+
   - name: Install htpasswd file for transmission.jerebear.name
     htpasswd:
       name: admin
