@@ -16,6 +16,9 @@ Variables:
 * `nginx_ssl_files`: Optional. If omitted, certain tasks are skipped. A list of
   paths to local SSL certificates and certificate keys. These files are
   installed in `/etc/nginx/ssl`.
+* `syncthing_password`: Optional. If omitted, certain tasks are skipped. A
+  password to use when setting the htpasswd file for
+  https://syncthing.ichimonji10.name.
 * `transmission_password`: Optional. If omitted, certain tasks are skipped. A
   password to use when setting the htpasswd file for
   https://transmission.jerebear.name/downloads/

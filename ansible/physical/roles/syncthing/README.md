@@ -11,18 +11,18 @@ Example playbook:
 ```yaml
 - hosts: all
   roles:
-  - syncthing
+    - syncthing
 ```
 
 Example variables file:
 
 ```yaml
 syncthing_usernames:
-- alice
-- bob
+  - alice
+  - bob
 ```
 
 Variables:
 
-* `syncthing_username`: Required. A list of user names for which syncthing is
+* `syncthing_usernames`: Required. A list of user names for which syncthing is
   configured.
