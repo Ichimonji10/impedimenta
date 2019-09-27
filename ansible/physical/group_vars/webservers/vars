@@ -1,5 +1,6 @@
 ---
 borg_backup_system_local_paths:
+  - /var/local/airsonic/backups
   - /var/local/subsonic/backups
 borg_backup_system_passphrase: '{{ vault_borg_backup_system_passphrase }}'
 borg_backup_system_remote_host: usw-s001.rsync.net

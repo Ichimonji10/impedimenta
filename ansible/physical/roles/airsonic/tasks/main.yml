@@ -1,0 +1,15 @@
+---
+- name: Install airsonic
+  pacman:
+    name: airsonic
+  become: true
+
+- include_tasks: configure-airsonic.yml
+- include_tasks: configure-backups.yml
+
+- name: Start and enable Airsonic
+  systemd:
+    name: airsonic
+    state: started
+    enabled: true
+  become: true

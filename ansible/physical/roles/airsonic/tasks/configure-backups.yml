@@ -1,0 +1,39 @@
+---
+- block:
+
+    # Let root own the directory to ensure that the Airsonic application can't
+    # touch the backup scripts, even if it's compromised.
+    - name: Create directory for Airsonic's database backups
+      file:
+        path: '{{ item }}'
+        state: directory
+        owner: root
+        group: root
+      loop:
+        - /var/local/airsonic
+        - /var/local/airsonic/backups
+
+    - name: Install units to periodically back up Airsonic's database
+      copy:
+        src: etc_systemd_system/{{ item }}
+        dest: /etc/systemd/system/{{ item }}
+      loop:
+        - airsonic-backup.service
+        - airsonic-backup.timer
+
+    - name: Start and enable timer to periodically back up Airsonic's database
+      systemd:
+        name: airsonic-backup.timer
+        state: started
+        enabled: true
+        daemon_reload: true
+
+    - name: Install script for restoring Airsonic's database
+      copy:
+        src: restore-airsonic.sh
+        dest: /usr/local/bin/
+        owner: root
+        group: root
+        mode: 0755
+
+  become: true

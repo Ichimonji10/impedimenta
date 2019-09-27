@@ -3,6 +3,9 @@ custom_repos:
   - path_prefix: /srv/packages.ichimonji10.name/arch-linux
     name: ichi-public
     packages:
+      # airsonic role
+      - airsonic
+
       # custom-repo role
       - aurutils
 

@@ -4,7 +4,7 @@ group-media
 Create the ``media`` group.
 
 Certain media files, such as books and movies, don't belong to any one file.
-Instead, several applications (such as subsonic) should be able to serve these
+Instead, several applications (such as airsonic) should be able to serve these
 files, and a select few users should be able to manually poke at these files.
 This role makes this policy possible, with the following procedure:
 

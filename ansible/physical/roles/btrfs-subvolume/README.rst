@@ -8,13 +8,13 @@ directory alongside the subvolume itself. This lends itself to a filesystem
 layout like so::
 
     home
-    srv-subsonic
+    srv-airsonic
     snapshots
         home
             2019-01-01T13:00-04:00
             2019-01-02T13:00-04:00
             2019-01-03T13:00-04:00
-        srv-subsonic
+        srv-airsonic
             2019-01-01T13:00-04:00
             2019-01-02T13:00-04:00
             2019-01-03T13:00-04:00
@@ -29,7 +29,7 @@ Example playbook:
           vars:
             btrfs_subvolumes:
               - path: /mnt/btrfs/home
-              - path: /mnt/btrfs/srv-subsonic
+              - path: /mnt/btrfs/srv-airsonic
                 snapshot: false
                 delete: true
 

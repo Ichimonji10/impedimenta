@@ -1,0 +1,9 @@
+[Unit]
+Description=Periodically back up Airsonic's database rebuild script
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=timers.target

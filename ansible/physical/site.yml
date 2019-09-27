@@ -78,6 +78,7 @@
 
 - hosts: webservers
   roles:
+    - airsonic
     - borg-backup-system
     - subsonic
 

@@ -26,7 +26,7 @@ Example playbook:
         - borg-backup-system
       vars:
         borg_backup_system_local_paths:
-          - /var/local/subsonic/backups
+          - /var/local/airsonic/backups
         borg_backup_system_passphrase: pass
         borg_backup_system_private_key: /path/to/key
 
