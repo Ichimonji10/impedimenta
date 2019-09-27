@@ -5,7 +5,6 @@ Install, configure and start nginx, and install static website files.
 
 Make the following websites available:
 
-* https://subsonic.ichimonji10.name
 * https://syncthing.ichimonji10.name
 * https://transmission.jerebear.name
 * https://www.backtobasicsreading.com

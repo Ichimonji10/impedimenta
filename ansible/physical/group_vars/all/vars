@@ -24,9 +24,6 @@ custom_repos:
       # mnemosyne role
       - mnemosyne
 
-      # subsonic role
-      - subsonic
-
       # uefi role
       - systemd-boot-pacman-hook
 

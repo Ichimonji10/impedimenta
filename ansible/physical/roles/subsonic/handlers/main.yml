@@ -1,7 +1,0 @@
----
-- name: Restart subsonic
-  systemd:
-    name: subsonic
-    state: restarted
-    daemon_reload: true
-  become: true
