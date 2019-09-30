@@ -14,9 +14,14 @@ Make the following websites available:
 
 Variables:
 
-* `nginx_ssl_files`: Optional. If omitted, certain tasks are skipped. A list of
-  paths to local SSL certificates and certificate keys. These files are
-  installed in `/etc/nginx/ssl`.
+* `nginx_ssl_domains`: A list of dicts, where each dict has the following
+  keys:
+
+  * domain: The domain for which SSL certificates are being installed, e.g.
+    `example.com`.
+  * crt: The .crt file to install for this domain.
+  * key: The .key file to install for this domain.
+
 * `syncthing_password`: Optional. If omitted, certain tasks are skipped. A
   password to use when setting the htpasswd file for
   https://syncthing.ichimonji10.name.

@@ -67,15 +67,10 @@
       state: directory
       mode: 0700
 
-  - name: Install SSL certificates and certificate keys
-    copy:
-      src: '{{ item }}'
-      dest: /etc/nginx/ssl/
-      owner: root
-      group: root
-      mode: 0600
-    loop: '{{ nginx_ssl_files }}'
-    when: nginx_ssl_files is defined
+  - include_tasks: install-domain-certs.yml
+    loop: '{{ nginx_ssl_domains }}'
+    loop_control:
+      loop_var: nginx_ssl_domain
 
   # From ansible-doc: The [copy] module recursively copy facility does not scale
   # to lots (>hundreds) of files. For alternative, see [synchronize] module,
