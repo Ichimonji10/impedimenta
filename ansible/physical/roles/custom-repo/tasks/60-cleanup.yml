@@ -1,0 +1,5 @@
+---
+- name: Delete outdated repositories
+  file:
+    path: /srv/packages.ichimonji10.name
+    state: absent

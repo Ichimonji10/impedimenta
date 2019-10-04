@@ -1,6 +1,6 @@
 ---
 custom_repos:
-  - path_prefix: /srv/packages.ichimonji10.name/arch-linux
+  - path_prefix: /srv/packages.jerebear.name/arch-linux
     name: ichi-public
     packages:
       # airsonic role
@@ -41,7 +41,7 @@ custom_repos:
       - ms-sys
       - signal-desktop-bin
 
-  - path_prefix: /srv/packages.ichimonji10.name/arch-linux
+  - path_prefix: /srv/packages.jerebear.name/arch-linux
     name: ichi-private
     auto_update: false
 

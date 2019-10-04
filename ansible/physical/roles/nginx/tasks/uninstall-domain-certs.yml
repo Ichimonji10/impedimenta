@@ -1,0 +1,9 @@
+---
+- name: Uninstall outdated domain certificates
+  file:
+    path: /etc/nginx/ssl/{{ item }}
+    state: absent
+  loop:
+    - packages.ichimonji10.name.chained.crt
+    - packages.ichimonji10.name.key
+  become: true

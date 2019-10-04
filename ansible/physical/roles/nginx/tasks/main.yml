@@ -42,13 +42,21 @@
         }}.htpasswd
       state: absent
 
-  - name: Install htpasswd file for packages.ichimonji10.name/.../ichi-private/
+  - name: Delete htpasswd file for packages.ichimonji10.name/.../ichi-private/
+    file:
+      path: >-
+        /etc/nginx/{{
+          'packages.ichimonji10.name/arch-linux/ichi-private' | systemd_escape
+        }}.htpasswd
+      state: absent
+
+  - name: Install htpasswd file for packages.jerebear.name/.../ichi-private/
     htpasswd:
       name: anonymous
       password: '{{ pacman_conf_repo_passwords["ichi-private"] }}'
       path: >-
         /etc/nginx/{{
-          'packages.ichimonji10.name/arch-linux/ichi-private' | systemd_escape
+          'packages.jerebear.name/arch-linux/ichi-private' | systemd_escape
         }}.htpasswd
       owner: root
       group: http

@@ -1,4 +1,6 @@
 ---
+ansible_connection: local
+
 syncthing_usernames:
   - ichimonji10
 

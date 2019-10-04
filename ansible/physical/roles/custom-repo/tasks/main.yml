@@ -19,3 +19,5 @@
   loop: '{{ custom_repos }}'
   loop_control:
     loop_var: custom_repo
+
+- include_tasks: 60-cleanup.yml
