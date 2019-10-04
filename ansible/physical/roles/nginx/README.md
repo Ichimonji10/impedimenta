@@ -5,7 +5,7 @@ Install, configure and start nginx, and install static website files.
 
 Make the following websites available:
 
-* https://syncthing.ichimonji10.name
+* https://syncthing.jerebear.name
 * https://transmission.jerebear.name
 * https://www.backtobasicsreading.com
 * https://airsonic.jerebear.name
@@ -23,7 +23,7 @@ Variables:
 
 * `syncthing_password`: Optional. If omitted, certain tasks are skipped. A
   password to use when setting the htpasswd file for
-  https://syncthing.ichimonji10.name.
+  https://syncthing.jerebear.name.
 * `transmission_password`: Optional. If omitted, certain tasks are skipped. A
   password to use when setting the htpasswd file for
   https://transmission.jerebear.name/downloads/

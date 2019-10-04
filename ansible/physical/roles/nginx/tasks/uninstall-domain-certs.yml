@@ -6,4 +6,6 @@
   loop:
     - packages.ichimonji10.name.chained.crt
     - packages.ichimonji10.name.key
+    - syncthing.ichimonji10.name.chained.crt
+    - syncthing.ichimonji10.name.key
   become: true

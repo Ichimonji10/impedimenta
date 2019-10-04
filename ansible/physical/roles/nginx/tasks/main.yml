@@ -12,12 +12,11 @@
         - media
       create_home: false
 
-  - name: Install htpasswd file for syncthing.ichimonji10.name
+  - name: Install htpasswd file for syncthing.jerebear.name
     htpasswd:
       name: admin
       password: '{{ syncthing_password }}'
-      path: >-
-        /etc/nginx/{{ 'syncthing.ichimonji10.name' | systemd_escape }}.htpasswd
+      path: /etc/nginx/{{ 'syncthing.jerebear.name' | systemd_escape }}.htpasswd
       owner: root
       group: http
       mode: 0640
