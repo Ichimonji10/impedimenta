@@ -14,7 +14,6 @@ custom_repos:
       - vim-badwolf-git
       - vim-hemisu-git
       - vim-undotree
-      - yamllint
 
       # libvirtd role
       - libguestfs
