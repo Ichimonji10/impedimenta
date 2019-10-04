@@ -36,7 +36,6 @@
         - python-passlib  # for ansible's htpasswd module
         - python-pylint
         - python-wheel
-        - python36
         - rust
         - rust-docs
         - shellcheck

@@ -11,7 +11,6 @@ custom_repos:
 
       # dev-env role
       - bandwidth
-      - python36
       - vim-badwolf-git
       - vim-hemisu-git
       - vim-undotree
