@@ -8,6 +8,7 @@
         - jdk8-openjdk
         - maven
         - python-rst2pdf
+        - python36
         - sbt
         - scala
         - spin
