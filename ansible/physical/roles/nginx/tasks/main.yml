@@ -79,6 +79,8 @@
     loop_control:
       loop_var: nginx_ssl_domain
 
+  - include_tasks: uninstall-domain-certs.yml
+
   # From ansible-doc: The [copy] module recursively copy facility does not scale
   # to lots (>hundreds) of files. For alternative, see [synchronize] module,
   # which is a wrapper around `rsync'.
