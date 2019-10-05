@@ -8,6 +8,7 @@
       owner: root
       group: root
       mode: 0600
+    notify: Reload nginx
 
   - name: Install {{ nginx_ssl_domain['domain'] }}.key
     copy:
@@ -16,5 +17,6 @@
       owner: root
       group: root
       mode: 0600
+    notify: Reload nginx
 
   become: true

@@ -13,3 +13,4 @@
     - www.ichimonji10.name.chained.crt
     - www.ichimonji10.name.key
   become: true
+  notify: Reload nginx
