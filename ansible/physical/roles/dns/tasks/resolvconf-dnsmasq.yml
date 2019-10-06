@@ -1,0 +1,51 @@
+---
+- block:
+
+    # resolvconf generates several configuration files, including
+    # /etc/dnsmasq-conf.conf, and dnsmasq will fail to start if that file is
+    # absent or invalid. Consequently, resolvconf should be configured and
+    # executed before dnsmasq is configured and started.
+    #
+    # However, once resolvconf has been configured and executed, the local
+    # resolver will forward queries to dnsmasq (due to the `nameserver
+    # 127.0.0.1` line in `/etc/resolv.conf`).
+    #
+    # The order of the following steps is important.
+
+    - name: Install dnsmasq
+      pacman:
+        name: dnsmasq
+        state: present
+
+    - name: Install resolvconf configuration file
+      copy:
+        src: resolvconf.conf
+        dest: /etc/
+        validate: 'bash -n %s'
+      register: result
+
+    # This temporarily breaks DNS resolution, as resolvconf is forwarding to a
+    # stopped dnsmasq.
+    - name: Regenerate /etc/resolv.conf
+      command: resolvconf -u
+      when: result is changed
+
+    # When dnsmasq receives a SIGHUP signal, e.g. from `systemctl reload`, it
+    # does not re-read its configuration file. See dnsmasq(8). As a result, a
+    # restart is required.
+    - name: Install dnsmasq configuration file
+      template:
+        src: dnsmasq.conf
+        dest: /etc/
+        validate: 'dnsmasq --test --conf-file=%s'
+      notify: Restart dnsmasq
+
+    # This fixes DNS resolution, as resolvconf can now forward to dnsmasq.
+    - name: Start and enable dnsmasq
+      systemd:
+        name: dnsmasq.service
+        state: started
+        enabled: true
+        daemon_reload: true
+
+  become: true

@@ -4,3 +4,9 @@
     name: dnsmasq.service
     state: restarted
   become: true
+
+- name: Reload NetworkManager
+  systemd:
+    name: NetworkManager
+    state: reloaded
+  become: true

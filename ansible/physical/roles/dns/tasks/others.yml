@@ -1,0 +1,40 @@
+---
+
+- name: Install NetworkManager configuration file
+  copy:
+    src: NetworkManager.conf
+    dest: /etc/NetworkManager/
+  become: true
+  when: "'workstations' in group_names"
+  notify: Reload NetworkManager
+
+- include_tasks: resolvconf-dnsmasq.yml
+
+- name: Check whether stubby is installed
+  command: pacman -Qi stubby
+  changed_when: false
+  failed_when: false
+  register: result
+
+- block:
+
+    # Clean-up from a prior version of this role.
+    - name: Stop and disable stubby
+      systemd:
+        name: stubby.service
+        state: stopped
+        enabled: false
+        daemon_reload: true
+      when: result.rc == 0
+
+    - name: Delete stubby configuration file
+      file:
+        path: /etc/stubby/stubby.yml
+        state: absent
+
+    - name: Uninstall stubby
+      pacman:
+        name: stubby
+        state: absent
+
+  become: true
