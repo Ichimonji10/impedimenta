@@ -26,22 +26,21 @@
       content: '{{ ssh_keypairs[item]["ichimonji10"]["private"] }}'
       mode: 0600
     loop:
-      - amelanchier.ichimonji10.name
-      - aronia.ichimonji10.name
-      - pine.ichimonji10.name
+      - amelanchier.jerebear.name
+      - aronia.jerebear.name
+      - pine.jerebear.name
     when: "'routers' in group_names or 'workstations' in group_names"
 
-  - name: Uninstall private SSH keys from non-(routers & workstations)
+  - name: Uninstall outdated SSH keys
     file:
       dest: '{{ user_ichimonji10_home }}/.ssh/{{ item }}'
       state: absent
     loop:
       - amelanchier.ichimonji10.name
       - aronia.ichimonji10.name
+      - beech.ichimonji10.name
       - pine.ichimonji10.name
-    when:
-      - "'routers' not in group_names"
-      - "'workstations' not in group_names"
+      - tupelo.ichimonji10.name
 
   become: true
   become_user: ichimonji10

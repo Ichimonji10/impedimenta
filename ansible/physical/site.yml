@@ -82,6 +82,6 @@
     - borg-backup-system
     - subsonic
 
-- hosts: pine.ichimonji10.name
+- hosts: pine.jerebear.name
   roles:
     - dynamic-dns
