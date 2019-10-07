@@ -9,6 +9,7 @@
   roles:
     - crda
     - dns
+    - dynamic-dns
     - essential-apps
     - intel-ucode
     - lm-sensors
@@ -66,7 +67,6 @@
 
 - hosts: routers
   roles:
-    - dynamic-dns
     - hostapd  # NOTE: Execute this play only over a wired connection.
     - netctl-routers
     - nftables-routers
@@ -81,7 +81,3 @@
     - airsonic
     - borg-backup-system
     - subsonic
-
-- hosts: pine.jerebear.name
-  roles:
-    - dynamic-dns
