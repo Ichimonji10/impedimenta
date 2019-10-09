@@ -1,7 +1,0 @@
----
-- name: Restart airsonic
-  systemd:
-    name: airsonic
-    state: restarted
-    daemon_reload: true
-  become: true

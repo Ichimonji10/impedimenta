@@ -1,5 +1,0 @@
----
-mnemosyne_sync_username: ichimonji10
-mnemosyne_sync_password: '{{ vault_mnemosyne_sync_password }}'
-
-# vim:ft=yaml:

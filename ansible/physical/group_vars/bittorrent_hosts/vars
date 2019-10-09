@@ -1,9 +1,0 @@
----
-openvpn_client_ivpn_username: '{{ vault_openvpn_client_ivpn_username }}'
-openvpn_client_ivpn_password: '{{ vault_openvpn_client_ivpn_password }}'
-
-syncthing_password: '{{ vault_syncthing_password }}'
-
-transmission_password: '{{ vault_transmission_password }}'
-
-# vim:ft=yaml:

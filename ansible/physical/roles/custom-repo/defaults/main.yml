@@ -1,9 +1,0 @@
----
-# global defaults
-custom_repos_user: custom-repo-user
-custom_repos_user_home: /usr/local/lib/{{ custom_repos_user }}
-custom_repos: []
-
-# per-repo defaults
-custom_repo_packages: []
-custom_repo_auto_update: true

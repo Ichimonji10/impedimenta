@@ -1,6 +1,0 @@
-Description='DMZ interface'
-Connection=ethernet
-Interface={{ netctl_routers_dmz_if }}
-IP=static
-Address=(192.168.11.1/24)
-SkipNoCarrier=yes

@@ -1,4 +1,0 @@
-# Wireless regulatory domain configuration. To list available regulatory
-# domains and the frequencies they allow, use a command like `regdbdump
-# /usr/lib/crda/regulatory.bin`.
-WIRELESS_REGDOM="US"

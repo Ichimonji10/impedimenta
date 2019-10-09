@@ -1,9 +1,0 @@
-[Unit]
-Description=Periodically start a btrfs balance on %f
-
-[Timer]
-OnCalendar=Monthly
-Persistent=True
-
-[Install]
-WantedBy=timers.target

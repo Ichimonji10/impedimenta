@@ -1,5 +1,0 @@
----
-- include_tasks: 40-compile-package.yml
-  loop: '{{ custom_repo.packages | default(custom_repo_packages) }}'
-  loop_control:
-    loop_var: custom_repo_package

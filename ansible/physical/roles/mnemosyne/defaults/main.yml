@@ -1,3 +1,0 @@
----
-mnemosyne_user: mnemosyne
-mnemosyne_user_home: /usr/local/lib/{{ mnemosyne_user }}

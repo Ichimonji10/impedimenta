@@ -1,5 +1,0 @@
----
-- name: Install systemd-boot-pacman-hook
-  pacman:
-    name: systemd-boot-pacman-hook
-  become: true

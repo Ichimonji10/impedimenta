@@ -1,4 +1,0 @@
-Description='A basic dhcp ethernet connection'
-Interface={{ netctl_generic_external_if }}
-Connection=ethernet
-IP=dhcp

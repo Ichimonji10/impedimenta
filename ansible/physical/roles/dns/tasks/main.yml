@@ -1,6 +1,0 @@
----
-- include_tasks: routers.yml
-  when: "'routers' in group_names"
-
-- include_tasks: others.yml
-  when: "'routers' not in group_names"

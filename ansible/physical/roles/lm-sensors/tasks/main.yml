@@ -1,6 +1,0 @@
----
-- name: Install lm_sensors
-  pacman:
-    name: lm_sensors
-  become: true
-  notify: Detect sensors

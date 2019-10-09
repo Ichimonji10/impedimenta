@@ -1,5 +1,0 @@
-Description='WAN interface'
-Interface={{ netctl_routers_wan_if }}
-Connection=ethernet
-IP=dhcp
-SkipNoCarrier=yes

@@ -1,9 +1,0 @@
-[Unit]
-Description=Start a short SMART scan every Wed and Fri
-
-[Timer]
-OnCalendar=Wed,Fri
-Persistent=true
-
-[Install]
-WantedBy=timers.target

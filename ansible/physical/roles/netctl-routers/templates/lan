@@ -1,6 +1,0 @@
-Description='LAN interface'
-Interface={{ netctl_routers_lan_if }}
-Connection=ethernet
-IP=static
-Address=(192.168.10.1/24)
-SkipNoCarrier=yes

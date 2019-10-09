@@ -1,4 +1,0 @@
----
-# badwolf is provided by an AUR package, and thus isn't available on routers.
-user_ichimonji10_vimrc_color: >
-  {{ "badwolf" if "workstations" in group_names else "jellybeans" }}

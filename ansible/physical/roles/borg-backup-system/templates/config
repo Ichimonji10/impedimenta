@@ -1,3 +1,0 @@
-Host {{ borg_backup_system_remote_host }}
-    User {{ borg_backup_system_remote_user }}
-    IdentityFile ~/.ssh/borg-backup

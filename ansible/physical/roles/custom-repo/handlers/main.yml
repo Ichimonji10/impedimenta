@@ -1,4 +1,0 @@
----
-- name: Lock password
-  command: passwd --lock {{ custom_repos_user }}
-  become: true

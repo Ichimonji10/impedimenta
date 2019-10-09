@@ -1,3 +1,0 @@
----
-- include_tasks: 10-uninstall.yml
-- include_tasks: 20-install.yml

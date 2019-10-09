@@ -1,4 +1,0 @@
----
-- name: Set install reason for optional dependencies
-  command: pacman -D --asdeps texlive-core
-  become: true

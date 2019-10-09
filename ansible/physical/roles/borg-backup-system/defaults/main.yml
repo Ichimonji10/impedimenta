@@ -1,4 +1,0 @@
----
-borg_backup_system_local_user: borg-backup
-borg_backup_system_local_user_home: >-
-  /usr/local/lib/{{ borg_backup_system_local_user }}

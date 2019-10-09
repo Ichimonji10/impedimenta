@@ -1,4 +1,0 @@
----
-# The pacman-conf role makes /etc/pacman.conf include /etc/pacman.d/*.conf.
-dependencies:
-  - role: pacman-conf

@@ -1,8 +1,0 @@
----
-- name: Install ~/.pypirc (for twine)
-  copy:
-    src: pypirc
-    dest: '{{ user_ichimonji10_home }}/.pypirc'
-  become: true
-  become_user: ichimonji10
-  when: "'dev_hosts' in group_names"

@@ -1,9 +1,0 @@
-[Unit]
-Description=Back up files with Borg
-Wants=network-online.target
-After=network-online.target
-
-[Service]
-Type=oneshot
-ExecStart=/usr/local/bin/borg-backup.sh
-User={{ borg_backup_system_local_user }}

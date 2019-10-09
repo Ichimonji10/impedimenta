@@ -1,4 +1,0 @@
----
-- name: Set the wireless regulatory domain
-  command: iw reg set US
-  become: true

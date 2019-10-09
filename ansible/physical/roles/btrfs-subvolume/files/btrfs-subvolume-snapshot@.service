@@ -1,6 +1,0 @@
-[Unit]
-Description=Snapshot %f
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/bash -c '/usr/bin/btrfs subvolume snapshot "%f" "%f/../snapshots/$(basename "%f")/$(date --iso-8601=minutes)"'
