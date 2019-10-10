@@ -138,7 +138,7 @@ pub fn list_caps(format: &str) {
     }
 }
 
-fn list_caps_as_prose(capabilities: &Vec<String>) {
+fn list_caps_as_prose(capabilities: &[String]) {
     let descriptions = get_cap_descriptions();
     let mut wrapper = textwrap::Wrapper::new(get_wrapper_width());
     println!(
@@ -157,7 +157,7 @@ fn list_caps_as_prose(capabilities: &Vec<String>) {
     }
 }
 
-fn list_caps_as_json(capabilities: &Vec<String>) {
+fn list_caps_as_json(capabilities: &[String]) {
     let descriptions = get_cap_descriptions();
     let mut present_capabilities: HashMap<&str, &str> = HashMap::new();
     for capability in capabilities {
@@ -193,7 +193,7 @@ pub fn notify(notification: &Notification) {
     let summary = &notification.summary;
     let body = &notification.body;
     let actions: Vec<String> = vec![];
-    let hints: HashMap<String, Variant<Box<RefArg>>> = HashMap::new();
+    let hints: HashMap<String, Variant<Box<dyn RefArg>>> = HashMap::new();
     let expire_timeout: i32 = -1;
     let req = dbus::Message::new_method_call(destination, path, iface, name)
         .expect("Failed to compile message due to invalid headers.")
