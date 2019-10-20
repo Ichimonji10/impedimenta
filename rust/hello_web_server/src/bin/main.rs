@@ -13,7 +13,8 @@ fn main() {
     let listener =
         TcpListener::bind(BIND_TARGET).expect(&format!("Failed to bind to {}", BIND_TARGET)[..]);
     let pool = ThreadPool::new(4);
-    for stream in listener.incoming() {
+    // Consider catching SIGTERM instead of handling only N requests.
+    for stream in listener.incoming().take(2) {
         pool.execute(|| {
             handle_connection(stream.expect("Failed to open TCP stream."));
         });

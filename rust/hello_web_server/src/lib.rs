@@ -16,9 +16,14 @@ where
 
 type Job = Box<dyn FnBox + Send + 'static>;
 
+enum Message {
+    NewJob(Job),
+    Terminate,
+}
+
 pub struct ThreadPool {
     workers: Vec<Worker>,
-    sender: mpsc::Sender<Job>,
+    sender: mpsc::Sender<Message>,
 }
 
 impl ThreadPool {
@@ -49,30 +54,59 @@ impl ThreadPool {
     {
         let job = Box::new(f);
         self.sender
-            .send(job)
+            .send(Message::NewJob(job))
             .expect("Failed to send job to worker.");
+    }
+}
+
+impl Drop for ThreadPool {
+    fn drop(&mut self) {
+        println!("Sending terminate message to workers.");
+        for _ in &mut self.workers {
+            self.sender
+                .send(Message::Terminate)
+                .expect("Failed to send terminate message to workers.");
+        }
+
+        println!("Shutting down workers.");
+        for worker in &mut self.workers {
+            println!("Shutting down worker {}", worker.id);
+            if let Some(thread) = worker.thread.take() {
+                thread
+                    .join()
+                    .expect(&format!("Failed to join worker {}", worker.id)[..]);
+            }
+        }
     }
 }
 
 struct Worker {
     id: usize,
-    thread: thread::JoinHandle<()>,
+    thread: Option<thread::JoinHandle<()>>,
 }
 
 impl Worker {
-    fn new(id: usize, receiver: Arc<Mutex<mpsc::Receiver<Job>>>) -> Worker {
+    fn new(id: usize, receiver: Arc<Mutex<mpsc::Receiver<Message>>>) -> Worker {
         let join_handle = thread::spawn(move || loop {
-            let job = receiver
+            let message = receiver
                 .lock()
                 .expect("Failed to acquire lock on receiver.")
                 .recv()
                 .expect("Failed to acquire job from receiver.");
-            println!("Worker {} got a job; executing.", id);
-            job.call_box();
+            match message {
+                Message::NewJob(job) => {
+                    println!("Worker {} got a job; executing.", id);
+                    job.call_box();
+                }
+                Message::Terminate => {
+                    println!("Worker {} was told to terminate.", id);
+                    break;
+                }
+            }
         });
         Worker {
             id,
-            thread: join_handle,
+            thread: Some(join_handle),
         }
     }
 }
