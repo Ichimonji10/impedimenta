@@ -2,14 +2,21 @@ use std::fs;
 use std::io::{Read, Write};
 use std::net::TcpListener;
 use std::net::TcpStream;
+use std::thread;
+use std::time::Duration;
+
+use hello_web_server::ThreadPool;
 
 const BIND_TARGET: &str = "127.0.0.1:7878";
 
 fn main() {
     let listener =
         TcpListener::bind(BIND_TARGET).expect(&format!("Failed to bind to {}", BIND_TARGET)[..]);
+    let pool = ThreadPool::new(4);
     for stream in listener.incoming() {
-        handle_connection(stream.expect("Failed to open TCP stream."));
+        pool.execute(|| {
+            handle_connection(stream.expect("Failed to open TCP stream."));
+        });
     }
 }
 
@@ -23,6 +30,9 @@ fn handle_connection(mut stream: TcpStream) {
 
     // Construct response.
     let (head, body_file) = if req_buf.starts_with(b"GET / HTTP/1.1\r\n") {
+        ("HTTP/1.1 200 OK\r\n\r\n", "assets/hello.html")
+    } else if req_buf.starts_with(b"GET /sleep HTTP/1.1\r\n") {
+        thread::sleep(Duration::from_secs(5));
         ("HTTP/1.1 200 OK\r\n\r\n", "assets/hello.html")
     } else {
         ("HTTP/1.1 404 NOT FOUND\r\n\r\n", "assets/404.html")
