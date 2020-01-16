@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 # coding=utf-8
 #
-# Demonstrate how multiple Python projects may be installed in editable mode by
-# poetry. poetry doesn't need to be installed system-wide for this script, as
-# this script will install poetry into a venv.
+# Demonstrate how multiple Python packages may be installed into a single venv
+# in editable mode by poetry.
+#
+# poetry doesn't need to be installed system-wide for this script, as this
+# script will install poetry into a venv.
 set -euo pipefail
 
 
