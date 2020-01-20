@@ -1,0 +1,23 @@
+pkgname=dep-mismatch-git
+pkgver=0.0.1
+pkgrel=1
+pkgdesc='Print info about an ISO-8601 string.'
+arch=(any)
+url='https://github.com/Ichimonji10/impedimenta'
+license=()
+options=(!emptydirs)
+makedepends=(python-setuptools)
+source=('git+https://github.com/Ichimonji10/impedimenta.git')
+sha256sums=('SKIP')
+
+build() {
+  cd "${srcdir}/impedimenta/python/dep-mismatch"
+  python setup.py build
+}
+
+package() {
+  cd "${srcdir}/impedimenta/python/dep-mismatch"
+  python setup.py install --optimize=2 --root="${pkgdir}" --skip-build
+}
+
+# vim:set ts=2 sw=2 et:
