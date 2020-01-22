@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "attrs-demo"
+version = "0.1.0"
+description = ""
+authors = ["Jeremy Audet <jerebear@protonmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+pylint = "^2"
+pytest = "^5.2"
+
+[tool.poetry.scripts]
+attrs-demo = 'attrs_demo:main'
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
