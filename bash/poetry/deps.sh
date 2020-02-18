@@ -65,7 +65,7 @@ poetry install --extras plugins
 for package in plugin-{a,b,c,d} core; do
     cd "${workspace}/${package}"
     echo
-    echo "Dependency tree for package ${package}:"
+    echo "Dependencies for package ${package}:"
     echo
-    poetry show --tree
+    poetry show
 done
