@@ -5,13 +5,15 @@
 
 def main():
     """Use ``Indenter`` to print a message."""
-    with Indenter() as indent:
-        indent.print('hi!')
-        with indent:
-            indent.print('hello')
-            with indent:
-                indent.print('bonjour')
-        indent.print('hey')
+    with Indenter() as indenter:
+        indenter.print('l1')
+
+    indenter = Indenter()
+    indenter.print('l0')
+    with indenter:
+        indenter.print('l1')
+        with indenter:
+            indenter.print('l2')
 
 
 class Indenter(object):  # pylint:disable=too-few-public-methods
@@ -19,7 +21,7 @@ class Indenter(object):  # pylint:disable=too-few-public-methods
 
     def __init__(self):
         """Create instance variables."""
-        self.indent_level = -1
+        self.indent_level = 0
 
     def __enter__(self):
         """Increase the indent level."""
