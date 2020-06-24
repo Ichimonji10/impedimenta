@@ -1,10 +1,9 @@
 intersphinx-path-root
 =====================
 
-Location: `root </>`_
+Location: :doc:`index`
 
-The root of the intersphinx-path documentation. For information on specific
-plugins, see:
+The root of the intersphinx-path documentation. For information on specific plugins, see:
 
-*   `intersphinx-path-1 <plugins/intersphinx-path-1/>`_
-*   `intersphinx-path-2 <plugins/intersphinx-path-2/>`_
+*   :doc:`intersphinx-path-1:index`
+*   :doc:`intersphinx-path-2:index`
