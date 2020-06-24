@@ -7,7 +7,7 @@ See: https://www.sphinx-doc.org/en/master/usage/configuration.html
 author = "Jeremy Audet"
 copyright = "2020, Jeremy Audet"  # pylint:disable=redefined-builtin
 exclude_patterns = ["_build"]
-extensions = ["sphinx.ext.intersphinx"]
+extensions = ["sphinx.ext.autodoc", "sphinx.ext.intersphinx"]
 nitpicky = True
 project = "intersphinx-path-root"
 
