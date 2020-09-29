@@ -12,6 +12,8 @@ typing = "^3.7.4"
 pytest = "^5.2"
 black = "^19.10b0"
 mypy = "^0.761"
+pre-commit = "^2.7.1"
+pylint = "^2.6.0"
 
 [build-system]
 requires = ["poetry>=0.12"]

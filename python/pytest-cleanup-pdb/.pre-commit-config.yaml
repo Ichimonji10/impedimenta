@@ -1,0 +1,64 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+#
+# `require_serial` is set for several hooks. Setting this option causes pre-commit to invoke the
+# target tool just once, and lets the target tool parallelize file processing.
+default_language_version:
+  python: python3
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+
+  - repo: https://github.com/ambv/black
+    rev: 20.8b1
+    hooks:
+      - id: black
+        args:
+          - --check
+          - --quiet
+          - --line-length
+          - '100'
+        require_serial: true
+
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.24.2
+    hooks:
+      - id: yamllint
+        args:
+          - -d
+          - '{rules: {line-length: {max: 100}}}'
+
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint
+        entry: pylint
+        args:
+          # Let black handle code formatting.
+          - --disable
+          - bad-continuation,line-too-long
+          - --jobs
+          - '0'
+        language: system
+        types:
+          - python
+        require_serial: true
+
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy
+        entry: mypy
+        args:
+          - --config-file
+          - python/pytest-cleanup-pdb/.mypy.ini
+        language: system
+        types:
+          - python
+        require_serial: true
