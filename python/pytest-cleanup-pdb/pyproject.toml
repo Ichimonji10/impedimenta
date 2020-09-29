@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pytest-cleanup"
+name = "pytest-cleanup-pdb"
 version = "0.1.0"
 description = ""
 authors = ["Jeremy Audet <jerebear@protonmail.com>"]

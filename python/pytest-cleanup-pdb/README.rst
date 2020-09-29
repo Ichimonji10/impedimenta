@@ -1,5 +1,5 @@
-pytest-cleanup
-==============
+pytest-cleanup-pdb
+==================
 
 Muck around with pytest to see how it handles cleanup with the ``--pdb`` flag.
 
