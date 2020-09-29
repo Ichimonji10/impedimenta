@@ -1,3 +1,5 @@
+# python mypy
+.mypy_cache/
 # python compiled source
 *.pyc
 # vim swap files
