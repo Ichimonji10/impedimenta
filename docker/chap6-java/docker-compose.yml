@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  fetcher:
+    # Build an image from the Dockerfile in the `build` directory, tag the built image as `image`,
+    # and run `image` with `command` arguments.
+    build: fetcher
+    image: jaudet/fetcher
+    command: ["https://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war"]
+    volumes:
+      - type: volume
+        source: tomcat8-webapps
+        target: /var/lib/tomcat8/webapps
+  server:
+    build: server
+    image: jaudet/server
+    ports:
+      - target: "8080"
+        protocol: tcp
+    volumes:
+      - type: volume
+        source: tomcat8-webapps
+        target: /var/lib/tomcat8/webapps
+
+volumes:
+  tomcat8-webapps:
