@@ -1,0 +1,69 @@
+---
+version: '3'
+
+volumes:
+  var-lib-redis:
+  var-log-nodeapp:
+  var-log-redis:
+
+services:
+
+  nodejs:
+    build: nodejs
+    image: jaudet/nodejs
+    ports:
+      - target: "3000"
+        protocol: tcp
+    volumes:
+      - type: volume
+        source: var-log-nodeapp
+        target: /var/log/nodeapp
+
+  redis-base:
+    build: redis-base
+    image: jaudet/redis-base
+    volumes:
+      - type: volume
+        source: var-lib-redis
+        target: /var/lib/redis
+      - type: volume
+        source: var-log-redis
+        target: /var/log/redis
+
+  redis-primary:
+    build: redis-primary
+    image: jaudet/redis-primary
+    volumes:
+      - type: volume
+        source: var-lib-redis
+        target: /var/lib/redis
+      - type: volume
+        source: var-log-redis
+        target: /var/log/redis
+
+  redis-replica:
+    build: redis-replica
+    image: jaudet/redis-replica
+    deploy:
+      replicas: 2
+    volumes:
+      - type: volume
+        source: var-lib-redis
+        target: /var/lib/redis
+      - type: volume
+        source: var-log-redis
+        target: /var/log/redis
+
+  logstash:
+    build: logstash
+    image: jaudet/logstash
+    volumes:
+      - type: volume
+        source: var-lib-redis
+        target: /var/lib/redis
+      - type: volume
+        source: var-log-nodeapp
+        target: /var/log/nodeapp
+      - type: volume
+        source: var-log-redis
+        target: /var/log/redis
