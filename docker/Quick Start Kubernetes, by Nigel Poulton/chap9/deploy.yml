@@ -1,0 +1,27 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: qsk-deploy
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      project: qsk-book
+  minReadySeconds: 20
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        project: qsk-book
+    spec:
+      containers:
+        - name: qsk-pod
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          image: nigelpoulton/qsk-book:1.1
