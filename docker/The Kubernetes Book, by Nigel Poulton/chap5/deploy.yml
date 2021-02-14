@@ -1,0 +1,26 @@
+---
+apiVersion: apps/v1  # i.e. schema
+kind: Deployment
+metadata:
+  name: hello-deploy
+spec:  # deployment & pod definition
+  replicas: 10
+  selector:
+    matchLabels:  # labels pods must have for deployment to manage them
+      app: hello-world
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:  # pod definition
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+        - name: hello-pod
+          image: nigelpoulton/k8sbook:latest  # or :edge
+          ports:
+            - containerPort: 8080
