@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-svc
+spec:
+  type: NodePort
+  ports:
+    - port: 8080  # where service listens for internal requests
+      nodePort: 30001  # where service listens for external requests
+      targetPort: 8080  # where service sends requests to
+      protocol: TCP
+  selector:
+    app: hello-world
